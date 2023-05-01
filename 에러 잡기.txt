@@ -1,1 +1,13 @@
 cd my-app  후에 npm start
+
+options.allowedHosts[0] should be a non-empty string
+에러 발생
+
+--> package.json 에 
+    "options":{
+    "allowedHosts": ["localhost", ".localhost"],
+    "proxy": "http://localhost:8080/"
+    }
+    추가
+
+    setupProxy.js도 만들었음

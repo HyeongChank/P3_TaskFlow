@@ -6,7 +6,7 @@ const Todolist = () =>{
     const [data, setData] = useState();
 
     useEffect(() =>{
-        fetch('http://localhost:8080/board')
+        fetch('http://localhost:8080/api/model')
         .then(response => response.json())
         .then(data => setData(data))
         .catch(error => console.log(error))

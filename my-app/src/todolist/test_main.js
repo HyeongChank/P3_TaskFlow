@@ -26,8 +26,7 @@ const Main = () => {
             }
         })
     }
-    // 수정 기능 추가
-    // json으로 스프링 전달
+
     const handleaddSubmit = async(event) =>{
         event.preventDefault();
         try {
@@ -36,11 +35,7 @@ const Main = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ 
-                todo: todo,
-                content: content,
-                cdate: moment(value).format("YYYY-MM-DD")
-              }),
+            body: JSON.stringify({ value }),
           });
           const data = await response.json();
           console.log(data);
@@ -79,23 +74,19 @@ const Main = () => {
                         {moment(value).format("YYYY년 MM월 DD일")} 
                     </div>
             </div>    
-            <div className='dvlist'>
-                hi
-                <div className='dschedule'>
-                    {renderSchedules()}
-                </div>
+
+            <div className='dschedule'>
+                {renderSchedules()}
             </div>
             <div>
                 <form onSubmit={handleaddSubmit}>
-                    <p>일정명</p>
-                    <label>
-                        <input type="text" name="todo" onChange={handlechange}></input>
-                    </label>
-                    <p>내용</p>
-                    <label>
-                        <input type="text" name="content" onChange={handlechange}></input>
-                    </label>
-                        <button type="submit">등록</button>
+                <label>
+                    <input type="text" name="todo" onChange={handlechange}></input>
+                </label>
+                <label>
+                    <input type="text" name="content" onChange={handlechange}></input>
+                </label>
+                    <button type="submit">등록</button>
                 </form>
 
             </div>

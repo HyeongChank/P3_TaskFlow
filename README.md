@@ -1,7 +1,7 @@
 # Todolist
 ```shell
-* [v] spring
-* [v] react
+* [v] Spring
+* [v] React
 ```
 
 > 달력을 통한 날짜 확인

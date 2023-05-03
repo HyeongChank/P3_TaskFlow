@@ -1,17 +1,48 @@
+.Tmain{
+    display: flex;
+    justify-content: center;
+
+
+}
+.ifif{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+h1{
+    color: blue;
+}
 .calendar_container{
     background-color: skyblue;
-    width: 90%;
+    width: 80%;
     color: brown;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: solid 1px black;
   }
+.loginArea{
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    height: 400px;
+}
+.loginBt{
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: right;
+}
 .dvlist{
     width: 80%;
     height: 300px;
-    background-color: #6f48eb;
+    background-color: #d5e6a896;
+    margin-top: 10px;
+    border: 1px solid black;
 }
 .dschedule{
-    background-color: yellow;
     height: 80%;
 }
 .dDate{
@@ -19,8 +50,10 @@
 }
 .react-calendar{
 
-    width: 80%;
-    max-width: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: #222;
     border-radius: 8px;
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
@@ -35,9 +68,46 @@
     margin-top: 8px;
 }
 .dbtitle{
-    background-color: green;
+    background-color: rgba(0, 128, 0, 0.658);
 }
 .dbcontent{
-    background-color: blue;
+    background-color: rgba(0, 0, 255, 0.5);
     color: white;
+    margin: 0;
+}
+
+.btGroup{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    height: 30px;
+}
+.Bt{
+    width: 50px;
+    height: 30px;
+    background-color: transparent;
+}
+.Bt:hover{
+    background-color: purple;
+
+}
+.area{
+    width: 200px;
+}
+.new_list{
+    width: 80%;
+    display: flex;  
+    justify-content: left;
+    align-items: left;  
+}
+.enrolllist{
+    display: flex;
+    justify-content: left;
+    align-items: left;
+}
+
+.testarea{
+    width: 80%;
+    height: 100px;
 }

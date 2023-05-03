@@ -3,15 +3,17 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import './mainpage.css';
-import Login from './GLogin';
+// import Login from './GLogin';
 import Enrollmember from './Enrollmember';
 import BLogin from './BLogin';
+import BClock from './BClock';
 
 const Main = () => {
     const [value, setValue] = useState(new Date());
     const [data, setData] = useState([]);
     const [todo, setTodo] = useState("");
     const [content, setContent] = useState("");
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 
     const onChange = (newValue) =>{
@@ -127,7 +129,9 @@ const Main = () => {
           console.log(error);
         }
     };
-
+    const handleLoginSuccess = () => {
+        setIsAuthenticated(true); // isAuthenticated 상태 변수를 true로 설정하여 컴포넌트 내용을 보이도록 함
+    }
 
     
     return(
@@ -135,11 +139,18 @@ const Main = () => {
         <div className='ifif'>
             <h3>일정관리 웹 서비스</h3>
             <h1>Todolist</h1>
+            <div><BClock/></div>
             <div className='loginArea'>
-                <div className='loginBt'><BLogin/></div>
-                <div className='loginBt'><Login/></div>
+                { !isAuthenticated &&
+                <>
+                <div className='loginBt'><BLogin onSuccess={handleLoginSuccess} /></div>
+                {/* <div className='loginBt'><Login/></div> */}
                 <div className='loginBt'><Enrollmember/></div>
+                </>
+                }
             </div>
+            { isAuthenticated &&
+            <>
             <div className='calendar_container'>
                 <p>Calendar</p>
                 <Calendar onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
@@ -168,8 +179,10 @@ const Main = () => {
                 </form>
 
 
-            </div>
-            </div>
+                </div>
+                </div>
+                </>
+                }
         </div>
         </div>
     )

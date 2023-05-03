@@ -1,8 +1,6 @@
-import { useState } from "react";
 
-const BLongin = () =>{
+const BLongin = (props) =>{
 
-    const [getlogin, setGetlogin] = useState();
     const loginbasic = async(e) =>{
         e.preventDefault();
         const data = {
@@ -25,6 +23,7 @@ const BLongin = () =>{
             const result = await response.text();
             if(result === '로그인 성공'){
                 console.log('success');
+                props.onSuccess();
             } else{
                 console.log('failure');
             }
@@ -36,13 +35,14 @@ const BLongin = () =>{
     return(
         <div>
             <form onSubmit={loginbasic}>
-                <label>
+                <label>ID : 
+                    
                     <input type="text" name="id"></input>
                 </label>
-                <label>
+                <label>PASSWORD : 
                     <input type="password" name="password"></input>
                 </label>
-                    <button type="submit">로그인</button>
+                    <button type="submit">기사용자 확인</button>
             </form>
         </div>
     )

@@ -40,7 +40,7 @@ const Enrollmember = () => {
             <label>
                 <input type="password" name="password" onChange={getMember}></input>
             </label>
-                <button type="submit">회원가입</button>
+                <button type="submit">신규 사용자 등록</button>
             </form>    
         </div>
     )

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './mainpage.css';
 
 const Enrollmember = () => {
     const [memberid, setMemberid] = useState();
@@ -35,14 +36,14 @@ const Enrollmember = () => {
         <div className="loginpage">
             <form onSubmit={enrollmembers}>
             <label>
-                <p className="loginp">ID :</p>              
-                <input type="text" name="id" onChange={getMember}></input>
+                <p className="loginp">ID</p>              
+                <input className="inputbox" type="text" name="id" onChange={getMember}></input>
             </label>
             <label>
-                <p className="loginp">PASSWORD :</p>              
-                <input type="password" name="password" onChange={getMember}></input>
+                <p className="loginp">PASSWORD</p>              
+                <input className="inputbox" type="password" name="password" onChange={getMember}></input>
             </label>
-                <button type="submit">신규 사용자 등록</button>
+                <button className="loginBt3d" type="submit"><span>Click</span><span>신규 사용자 등록</span></button>
             </form>    
         </div>
     )

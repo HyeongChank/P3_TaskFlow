@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import BClock from "./BClock";
 import BLongin from "./BLogin";
+import Backdisplay from "./Backdisplay";
 import Enrollmember from "./Enrollmember";
+
 
 const RouteHome = (props) =>{
     const navigate = useNavigate();
@@ -42,21 +44,23 @@ const RouteHome = (props) =>{
     }   
     
     return(
+        
         <div className='Tmain'>
+        
         <div className='ifif'>
-            <h3>일정관리 웹 서비스</h3>
+            <h2>일정관리 웹 서비스</h2>
             <h1>Todolist</h1>
             <div><BClock/></div>
             <div className='loginArea'>
 
-                <>
-                <div className='loginBt'><BLongin/></div>
+                <div className="loginleft"><BLongin/></div>
                 {/* <div className='loginBt'><Login/></div> */}
-                <div className='loginBt'><Enrollmember/></div>
-                </>
+                <div className="loginright"><Enrollmember/></div>
+                
 
             </div>
         </div>
+        <Backdisplay/>
         </div>
     )
 }

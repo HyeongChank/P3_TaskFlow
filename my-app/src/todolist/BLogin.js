@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import './mainpage.css';
+
 const BLongin = (props) =>{
     const navigate = useNavigate();
     const loginbasic = async(e) =>{
@@ -37,14 +39,14 @@ const BLongin = (props) =>{
         <div className="loginpage">
             <form onSubmit={loginbasic}>
                 <label className="logindis">
-                    <p className="loginp">ID :</p>
-                    <input type="text" name="id" className="inputarea"></input>
+                    <p className="loginp">ID</p>
+                    <input className="inputbox" type="text" name="id"></input>
                 </label>
                 <label className="logindis">
-                    <p className="loginp">PASSWORD :</p>
-                    <input type="password" name="password" className="inputarea"></input>
+                    <p className="loginp">PASSWORD</p>
+                    <input className="inputbox" type="password" name="password"></input>
                 </label>
-                    <button type="submit">기사용자 입장</button>
+                    <button className="loginBt3d" type="submit"><span>Click</span><span>기사용자 입장</span></button>
             </form>
         </div>
     )

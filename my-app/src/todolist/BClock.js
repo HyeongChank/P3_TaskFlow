@@ -4,7 +4,7 @@ import LiveClock from 'react-live-clock';
 const BClock = () =>{
 
     return(
-        <div>
+        <div className="clockD">
             <LiveClock format={'YYYY년 MM월 DD일 HH:mm:ss'} ticking={true}/>
         </div>
     )

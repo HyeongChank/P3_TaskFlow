@@ -1,10 +1,15 @@
-import { useNavigate } from "react-router-dom";
-const BLongin = (props) =>{
+import { Link, useNavigate } from "react-router-dom";
+import BClock from "./BClock";
+import BLongin from "./BLogin";
+import Enrollmember from "./Enrollmember";
+
+const RouteHome = (props) =>{
     const navigate = useNavigate();
+
     const loginbasic = async(e) =>{
         e.preventDefault();
         const data = {
-            mid: e.target.id.value,
+            id: e.target.id.value,
             password: e.target.password.value,
           };
         try{
@@ -23,8 +28,7 @@ const BLongin = (props) =>{
             const result = await response.text();
             if(result === '로그인 성공'){
                 console.log('success');
-
-                navigate('/p');                
+                props.onSuccess();
             } else{
                 console.log('failure');
             }
@@ -32,21 +36,28 @@ const BLongin = (props) =>{
             console.error(error);
         }
 
-    };       
+    };    
+    const goPage1 = () =>{
+        navigate('/p1');
+    }   
+    
     return(
-        <div className="loginpage">
-            <form onSubmit={loginbasic}>
-                <label className="logindis">
-                    <p className="loginp">ID :</p>
-                    <input type="text" name="id" className="inputarea"></input>
-                </label>
-                <label className="logindis">
-                    <p className="loginp">PASSWORD :</p>
-                    <input type="password" name="password" className="inputarea"></input>
-                </label>
-                    <button type="submit">기사용자 입장</button>
-            </form>
+        <div className='Tmain'>
+        <div className='ifif'>
+            <h3>일정관리 웹 서비스</h3>
+            <h1>Todolist</h1>
+            <div><BClock/></div>
+            <div className='loginArea'>
+
+                <>
+                <div className='loginBt'><BLongin/></div>
+                {/* <div className='loginBt'><Login/></div> */}
+                <div className='loginBt'><Enrollmember/></div>
+                </>
+
+            </div>
+        </div>
         </div>
     )
 }
-export default BLongin;
+export default RouteHome;

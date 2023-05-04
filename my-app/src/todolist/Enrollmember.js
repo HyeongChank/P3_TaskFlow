@@ -13,7 +13,7 @@ const Enrollmember = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
-                id: memberid,
+                mid: memberid,
                 password: memberpw,
               }),
           });
@@ -32,12 +32,14 @@ const Enrollmember = () => {
           }        
     }
     return(
-        <div>
+        <div className="loginpage">
             <form onSubmit={enrollmembers}>
             <label>
+                <p className="loginp">ID :</p>              
                 <input type="text" name="id" onChange={getMember}></input>
             </label>
             <label>
+                <p className="loginp">PASSWORD :</p>              
                 <input type="password" name="password" onChange={getMember}></input>
             </label>
                 <button type="submit">신규 사용자 등록</button>

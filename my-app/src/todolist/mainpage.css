@@ -23,18 +23,7 @@ h1{
     align-items: center;
     border: solid 1px black;
   }
-.loginArea{
-    width: 80%;
-    display: flex;
-    justify-content: right;
-    height: 400px;
-}
-.loginBt{
-    width: 250px;
-    height: 50px;
-    display: flex;
-    justify-content: right;
-}
+
 .dvlist{
     width: 80%;
     height: 300px;
@@ -107,7 +96,38 @@ h1{
     align-items: left;
 }
 
-.testarea{
+.textarea{
     width: 80%;
     height: 100px;
 }
+.loginpage{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+
+}
+/* .logindis{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+    justify-content: left;
+}
+
+.inputarea{
+    height: 20px;
+}*/
+
+.loginArea{
+    width: 80%;
+    display: flex;
+    justify-content: right;
+    height: 400px;
+}
+/*
+.loginBt{
+    width: 250px;
+    height: 50px;
+    display: flex;
+    justify-content: left;
+}  */

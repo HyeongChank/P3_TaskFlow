@@ -72,17 +72,20 @@ public class TodolistController {
 		ts.updateTodo(todoList);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Access-Contrl-Allow-Origin","*");
+//		json 형태로 담기 위해 memberlist에 담음
 		return ResponseEntity.ok().headers(headers).body(todoList);
 	}
 	
 	@PostMapping("/api/insertMembers")
-	public ResponseEntity<List<Members>> insertMembers(@RequestBody Members ms){
+	public ResponseEntity<String> insertMembers(@RequestBody Members mb){
+		//list는 필요없음
 		List<Members> memberList = new ArrayList<>();
-		memberList.add(ms);
-		ts.insertMembers(memberList);
+		String mid = mb.getMid();
+		memberList.add(mb);
+
 		HttpHeaders headers = new HttpHeaders();
-//		json 형태로 담기 위해 memberlist에 담음
-		return ResponseEntity.ok().headers(headers).body(memberList);
+
+		return ts.insertMembers(mb, mid, memberList);
 	}
 	
 	@PostMapping("/api/login")

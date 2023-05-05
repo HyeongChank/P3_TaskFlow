@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import './mainpage.css';
 
 const BLongin = (props) =>{
@@ -25,12 +25,16 @@ const BLongin = (props) =>{
             const result = await response.text();
             if(result === '로그인 성공'){
                 console.log('success');
-                navigate(`/p?mid=${data.mid}`);
-                // navigate('/p');                
-            } else{
-                console.log('failure');
-            }
+                // navigate로 페이지 이동 시 파라미터 전달 방법 2가지
+                // 1. url에 넣어서 보내기 : navigate(`/p?mid=${data.mid}`);
+                // 2. state 로 보내기
+                navigate('/p',{state:{
+                    mid:`${data.mid}`
+                }
+            });                
+            } 
         } catch(error){
+            alert('Id, Password 가 잘못되었습니다. 다시 입력해 주세요')
             console.error(error);
         }
 

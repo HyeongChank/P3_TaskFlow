@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -9,7 +9,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const RoutePage1 = () => {
     const location = useLocation();
-    const mid = new URLSearchParams(location.search).get('mid');
+    const mid = location.state.mid;
+
     console.log(mid)
     const navigate = useNavigate();
     const [value, setValue] = useState(new Date());
@@ -124,50 +125,60 @@ const RoutePage1 = () => {
         }
     }
     const successEvent = () => {
-        const message = 'Accomplish todays task';
+        const message = 'Congratulation, Accomplish Task';
         const blinkInterval = 500; // 깜빡임 간격 (ms)
         const blinkCount = 10; // 깜빡임 횟수
       
-        // 도형 출력을 위한 SVG 요소 생성
-        const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        svgElement.setAttribute('width', '24');
-        svgElement.setAttribute('height', '24');
-        svgElement.style.position = 'absolute';
-        svgElement.style.top = '50%';
-        svgElement.style.left = '50%'; // 버튼 옆에 배치하기 위한 위치 조정
-        svgElement.style.transform = 'translate(-50%, -50%)';
-        document.body.appendChild(svgElement);
-
-        // 메시지 출력을 위한 DOM 요소 생성
+                // 메시지 출력을 위한 DOM 요소 생성
         const messageElement = document.createElement('div');
         messageElement.innerText = message;
         messageElement.style.fontSize = '40px';
         messageElement.style.fontWeight = 'bold';
         messageElement.style.position = 'absolute';
-        messageElement.style.color = 'rgba(0, 128, 0, 0.658)';
+        messageElement.style.color = '#fff';
         messageElement.style.top = '15%';
         messageElement.style.left = '50%';
         messageElement.style.transform = 'translate(-50%, -50%)';
         document.body.appendChild(messageElement);
-        // 다각형 도형 생성
-        const polygonElement = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-        polygonElement.setAttribute('points', '12,0 16,8 24,8 18,14 21,22 12,17 3,22 6,14 0,8 8,8');
-        polygonElement.style.fill = '#f0ad4e';
-        svgElement.appendChild(polygonElement);      
+
+        // 도형 출력을 위한 SVG 요소 생성 및 다각형 도형 생성
+        for (let i = 0; i < 400; i++) {
+            const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svgElement.setAttribute('width', '24');
+            svgElement.setAttribute('height', '24');
+            svgElement.style.position = 'absolute';
+            svgElement.style.top = `${Math.floor(Math.random() * 100)}%`;
+            svgElement.style.left = `${Math.floor(Math.random() * 100)}%`;
+            svgElement.style.transform = 'translate(-50%, -50%)';
+            document.body.appendChild(svgElement);
+
+            const polygonElement = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            polygonElement.setAttribute('points', '6,0 8,4 12,4 9,7 10.5,11 6,8 1.5,11 3,7 0,4 4,4');
+            polygonElement.style.fill = 'rgb(172, 2, 251)';
+            polygonElement.style.stroke = '#f0ad4e';
+            polygonElement.style.strokeWidth = '2';
+            polygonElement.style.animation = 'blink 1s ease-in-out infinite';
+            svgElement.appendChild(polygonElement);
+        }     
         // 깜빡임 효과를 위한 함수
         const blink = (count) => {
-          if (count === 0) {
+        if (count === 0) {
 
-            svgElement.remove();
-            messageElement.remove();
-            return;
-          }
-          // 깜빡임 효과를 위해 메시지 요소의 가시성 속성을 토글
-          svgElement.style.visibility = svgElement.style.visibility === 'hidden' ? 'visible' : 'hidden';
-          messageElement.style.visibility = messageElement.style.visibility === 'hidden' ? 'visible' : 'hidden';
-          // 일정 시간 후에 다시 blink 함수 호출
-          setTimeout(() => blink(count - 1), blinkInterval);
+        document.querySelectorAll('svg').forEach(el => el.remove());
+        messageElement.remove();
+        return;
+        }
+        document.querySelectorAll('svg').forEach(el => {
+            el.style.top = `${Math.floor(Math.random() * 100)}%`;
+            el.style.left = `${Math.floor(Math.random() * 100)}%`;
+            el.style.visibility = el.style.visibility === 'hidden' ? 'visible' : 'hidden';
+          });
+        messageElement.style.visibility = messageElement.style.visibility === 'hidden' ? 'visible' : 'hidden';
+
+        // 일정 시간 후에 다시 blink 함수 호출
+        setTimeout(() => blink(count - 1), blinkInterval);
         };
+
         // 깜빡임 효과 시작
         blink(blinkCount);
       };

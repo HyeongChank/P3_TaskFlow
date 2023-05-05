@@ -59,19 +59,20 @@ public class TodoService {
 		return todoList;
 	}
 
-	public List<Members> insertMembers(List<Members> memberList) {
-		for(int i=0; i<memberList.size();i++) {
-			Long seq = memberList.get(i).getSeq();
-			String rid = memberList.get(i).getMid();
-			if(mr.findById(seq).isEmpty()) {
-				if(mr.findBymid(rid) != null) {
-					mr.save(memberList.get(i));					
-				}
-				
+	public ResponseEntity<String> insertMembers(Members mb, String mid, List<Members> memberList) {
+		System.out.println(mb.getMid());
+		List<Members> lmb = (List<Members>) mr.findAll();
+		boolean alreadyExist = false;
+		for(Members ms : lmb) {
+			if(ms.getMid().equals(mb.getMid())) {
+				alreadyExist = true;
+			    return ResponseEntity.badRequest().body("등록 실패");
 			}
-
 		}
-		return memberList;
+		if(!alreadyExist) {
+			mr.save(mb);
+		}
+		return ResponseEntity.ok().body("등록 성공");	    			
 	}
 
 	public ResponseEntity<String> getMembers(Members mb, String id, String password) {

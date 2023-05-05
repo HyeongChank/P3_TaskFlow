@@ -40,6 +40,24 @@ const Backdisplay = () =>{
         top: '136px',
         left: '900px',
       };
+      const c1_s9_style = {
+        top: `${Math.random() * 1000}px`,
+        left: `${Math.random() * 1000}px`,
+      };
+    
+      const c1_s10_style = {
+        top: `${Math.random() * 1000}px`,
+        left: `${Math.random() * 1000}px`,
+      };      
+      const c1_s11_style = {
+        top: `${Math.random() * 1000}px`,
+        left: `${Math.random() * 1000}px`,
+      };
+    
+      const c1_s12_style = {
+        top: `${Math.random() * 1000}px`,
+        left: `${Math.random() * 1000}px`,
+      };            
     
       return (
         <div style={{
@@ -51,46 +69,69 @@ const Backdisplay = () =>{
             zIndex: -1,
         }}>
           <div id="early2021">
-            <div class="top">
-              <div class="inner">
-                <div class="c1_s">
+            <div className="top">
+              <div className="inner">
+                <div className="c1_s">
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s1.png"
-                    class="c1_s1"
+                    className="c1_s1"
                     style={c1_s1_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s2.png"
-                    class="c1_s2"
+                    className="c1_s2"
                     style={c1_s2_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s3.png"
-                    class="c1_s3"
+                    className="c1_s3"
                     style={c1_s3_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s4.png"
-                    class="c1_s4"
+                    className="c1_s4"
                     style={c1_s4_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s5.png"
-                    class="c1_s5"
+                    className="c1_s5"
                     style={c1_s5_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s6.png"
-                    class="c1_s6"
+                    className="c1_s6"
                     style={c1_s6_style}
                   />
                   <img
                     src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s7.png"
-                    class="c1_s7"
+                    className="c1_s7"
                     style={c1_s7_style}
                   />
                   <img
-                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s8.png"/>
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s8.png"
+                    className = "c1_s7"
+                    style={c1_s8_style}
+                  />
+                  <img
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s1.png"
+                    className = "c1_s9"
+                    style={c1_s9_style}
+                  />
+                  <img
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s2.png"
+                    className = "c1_s10"
+                    style={c1_s10_style}
+                  />  
+                  <img
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s3.png"
+                    className = "c1_s11"
+                    style={c1_s11_style}
+                  />
+                  <img
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s4.png"
+                    className = "c1_s12"
+                    style={c1_s12_style}
+                  />                                                      
                 </div>    
                 </div>
                 </div>

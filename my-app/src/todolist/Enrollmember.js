@@ -18,8 +18,14 @@ const Enrollmember = () => {
                 password: memberpw,
               }),
           });
-          const data = await response.json();
-          console.log(data);
+          if(!response.ok){
+            alert('기 등록된 ID 입니다')
+            throw new Error('enroll error');
+        }
+        const result = await response.text();
+        if(result === '등록 성공'){
+            console.log('success');
+        }
           // 받아온 데이터를 화면에 출력하는 코드 작성
         } catch (error) {
           console.error(error);

@@ -88,4 +88,19 @@ public class TodoService {
 	    return ResponseEntity.badRequest().body("로그인 실패");
 
 	}
+
+	public ResponseEntity<String> successTodo(Todolist tl, Long id) {
+		System.out.println(id);
+		List<Todolist> ltd = (List<Todolist>) tr.findAll();
+		for(Todolist td : ltd) {
+			if(td.getId()==id) {
+				if(td.getSuccess()==null) {
+					td.setSuccess("success");
+					tr.save(td);
+					return ResponseEntity.ok().body("success");
+				}
+			}
+		}
+		return ResponseEntity.badRequest().body("Ntime");
+	}
 }

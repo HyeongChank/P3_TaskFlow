@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 
 const Backdisplay = () =>{
     const c1_s1_style = {
@@ -90,7 +90,7 @@ const Backdisplay = () =>{
                     style={c1_s7_style}
                   />
                   <img
-                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1"/>
+                    src="http://img247.etoos.com/web/w247/images/cnt/recruit/early2021/c1_s8.png"/>
                 </div>    
                 </div>
                 </div>

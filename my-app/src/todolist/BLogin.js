@@ -6,7 +6,7 @@ const BLongin = (props) =>{
     const loginbasic = async(e) =>{
         e.preventDefault();
         const data = {
-            mid: e.target.id.value,
+            mid: e.target.mid.value,
             password: e.target.password.value,
           };
         try{
@@ -25,8 +25,8 @@ const BLongin = (props) =>{
             const result = await response.text();
             if(result === '로그인 성공'){
                 console.log('success');
-
-                navigate('/p');                
+                navigate(`/p?mid=${data.mid}`);
+                // navigate('/p');                
             } else{
                 console.log('failure');
             }
@@ -38,11 +38,11 @@ const BLongin = (props) =>{
     return(
         <div className="loginpage">
             <form onSubmit={loginbasic}>
-                <label className="logindis">
+                <label>
                     <p className="loginp">ID</p>
-                    <input className="inputbox" type="text" name="id"></input>
+                    <input className="inputbox" type="text" name="mid"></input>
                 </label>
-                <label className="logindis">
+                <label>
                     <p className="loginp">PASSWORD</p>
                     <input className="inputbox" type="password" name="password"></input>
                 </label>

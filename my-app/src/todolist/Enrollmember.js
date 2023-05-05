@@ -26,7 +26,7 @@ const Enrollmember = () => {
         }
     }
     const getMember = (e) =>{
-        if (e.target.name === "id") {
+        if (e.target.name === "mid") {
             setMemberid(e.target.value);
           } else if (e.target.name === "password") {
             setMemberpw(e.target.value);
@@ -37,7 +37,7 @@ const Enrollmember = () => {
             <form onSubmit={enrollmembers}>
             <label>
                 <p className="loginp">ID</p>              
-                <input className="inputbox" type="text" name="id" onChange={getMember}></input>
+                <input className="inputbox" type="text" name="mid" onChange={getMember}></input>
             </label>
             <label>
                 <p className="loginp">PASSWORD</p>              
@@ -45,7 +45,7 @@ const Enrollmember = () => {
             </label>
                 <button className="loginBt3d" type="submit"><span>Click</span><span>신규 사용자 등록</span></button>
             </form>    
-        </div>
+      </div>
     )
 }
 export default Enrollmember;

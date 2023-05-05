@@ -5,7 +5,7 @@ const RouteNv = () => {
     <nav>
       <Routes>
         <Route path="/" element={<Link to="/">Home</Link>} />
-        <Route path="/p1" element={<Link to="/p1">페이지1</Link>} />
+        <Route path="/p" element={<Link to="/p">페이지1</Link>} />
       </Routes>
     </nav>
   );

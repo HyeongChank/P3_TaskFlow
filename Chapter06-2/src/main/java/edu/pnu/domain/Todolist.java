@@ -28,16 +28,18 @@ public class Todolist {
 	private String success;
 	private String cdate;
 	private String content;
+	private String mid;
 	public Todolist() {
 		
 	}
-	public Todolist(long id, String todo, String success, String cdate, String content) {
+	public Todolist(long id, String todo, String success, String cdate, String content, String mid) {
 		super();
 		this.id = id;
 		this.todo = todo;
 		this.success = success;
 		this.cdate = cdate;
 		this.content = content;
+		this.mid = mid;
 	}
 	public long getId() {
 		return id;
@@ -68,6 +70,14 @@ public class Todolist {
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	
+	
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
 	}
 	@Override
 	public String toString() {

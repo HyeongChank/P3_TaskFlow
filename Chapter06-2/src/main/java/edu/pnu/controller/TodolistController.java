@@ -92,5 +92,12 @@ public class TodolistController {
 	    System.out.println(id + password);
 	    return ts.getMembers(mb, id, password);
 	}
+	@PostMapping("/api/success")
+	public ResponseEntity<String> success(@RequestBody Todolist tl){
+		
+		Long id = tl.getId();
+		
+		return ts.successTodo(tl, id);
+	}
 
 }

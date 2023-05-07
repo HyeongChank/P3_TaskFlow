@@ -25,7 +25,8 @@ import edu.pnu.domain.Members;
 import edu.pnu.domain.Todolist;
 import edu.pnu.service.TodoService;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://todolist-45c52.web.app")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	
@@ -89,7 +90,7 @@ public class TodolistController {
 	}
 	
 	@PostMapping("/api/login")
-	public ResponseEntity<String> getMembers(@RequestBody Members mb){
+	public ResponseEntity<Map<String,String>> getMembers(@RequestBody Members mb){
 	    String id = mb.getMid();
 	    String password = mb.getPassword();
 	    System.out.println(id + password);

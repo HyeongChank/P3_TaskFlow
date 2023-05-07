@@ -1,17 +1,15 @@
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 import './mainpage.css';
-import BClock from './BClock';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RoutePage1 = () => {
     const location = useLocation();
     const mid = location.state.mid;
 
-    console.log(mid)
     const navigate = useNavigate();
     const [value, setValue] = useState(new Date());
     const [data, setData] = useState([]);

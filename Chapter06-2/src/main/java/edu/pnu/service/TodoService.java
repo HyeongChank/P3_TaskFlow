@@ -1,7 +1,9 @@
 package edu.pnu.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,18 +77,22 @@ public class TodoService {
 		return ResponseEntity.ok().body("등록 성공");	    			
 	}
 
-	public ResponseEntity<String> getMembers(Members mb, String id, String password) {
+	public ResponseEntity<Map<String, String>> getMembers(Members mb, String id, String password) {
 		System.out.println(id + password);
+		Map<String, String> map = new HashMap<>();
 	    List<Members> lcs = (List<Members>) mr.findAll();
 	    for(Members ms : lcs) {
 	    	System.out.println(ms.getMid());
 	    	if(ms.getMid().equals(id)) {
 	    		if(ms.getPassword().equals(password)) {
-		    		return ResponseEntity.ok().body("로그인 성공");	    			
+	    			map.put("key1", "로그인 성공");
+	    			map.put("key2", ms.getMid());
+		    		return ResponseEntity.ok().body(map);	    			
 	    		}
 	    	}
 	    }
-	    return ResponseEntity.badRequest().body("로그인 실패");
+	    map.put("key1", "로그인 실패");
+	    return ResponseEntity.badRequest().body(map);
 
 	}
 

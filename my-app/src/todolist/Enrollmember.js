@@ -2,6 +2,7 @@ import { useState } from "react";
 import './mainpage.css';
 
 const Enrollmember = () => {
+
     const [memberid, setMemberid] = useState();
     const [memberpw, setMemberpw] = useState();
 
@@ -25,13 +26,15 @@ const Enrollmember = () => {
         const result = await response.text();
         if(result === '등록 성공'){
             console.log('success');
+           
         }
           // 받아온 데이터를 화면에 출력하는 코드 작성
         } catch (error) {
-          console.error(error);
+          console.log(error);
         }
     }
     const getMember = (e) =>{
+        console.log(e)
         if (e.target.name === "mid") {
             setMemberid(e.target.value);
           } else if (e.target.name === "password") {

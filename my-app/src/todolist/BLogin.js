@@ -50,6 +50,10 @@ const BLongin = () =>{
             setMemberpw(e.target.value);
           }        
     }
+
+    const findloginInf = () =>{
+        navigate('/f');
+    }
     return(
         <div className="loginpage">
             <form onSubmit={logintool}>
@@ -61,8 +65,12 @@ const BLongin = () =>{
                     <p className="loginp">PASSWORD</p>
                     <input className="inputbox" type="password" name="password" onChange={loginbasic}></input>
                 </label>
-                    <button className="loginBt3d" type="submit"><span>Click</span><span>기사용자 입장</span></button>
+                    <button className="loginBt3d" type="submit"><span className="sp1">Click</span><span>기사용자 입장</span></button>
+                    <p>If you forgot</p>
+                    <button className="findloginInf" onClick={findloginInf}>Find ID, PW</button>
             </form>
+
+
         </div>
     )
 }

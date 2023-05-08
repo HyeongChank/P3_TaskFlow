@@ -16,13 +16,13 @@ const RoutePage1 = () => {
     const [todo, setTodo] = useState("");
     const [content, setContent] = useState("");
 
-    const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
-    const appStyle = {
-      backgroundImage: `url(${backgroundImageUrl})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      minHeight: '100vh',
-    }
+    // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
+    // const appStyle = {
+    //   backgroundImage: `url(${backgroundImageUrl})`,
+    //   backgroundSize: 'cover',
+    //   backgroundPosition: 'center',
+    //   minHeight: '100vh',
+    // }
 
 
     const onChange = (newValue) =>{
@@ -234,7 +234,8 @@ const RoutePage1 = () => {
 
 
     return(
-        <div className='Tmain' style={appStyle}>
+        // <div className='Tmain' style={appStyle}>
+        <div className='Tmain'>
         <div className='secondmain'>
             <span className="mainT">Todolist</span>
             <div className="clockLogout">

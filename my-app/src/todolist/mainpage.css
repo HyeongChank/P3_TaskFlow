@@ -167,6 +167,11 @@ h1{
   margin-bottom: 0px;
   color: white;
 }
+.findloginInf{
+  background-color: yellow;
+  margin-top: 10px;
+}
+
 .inputbox{
   width: 150px;
 

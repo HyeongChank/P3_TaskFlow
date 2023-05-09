@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { async } from "regenerator-runtime";
+
 
 const Findlogin = () =>{
 
@@ -119,7 +119,7 @@ const Findlogin = () =>{
           }
  
           } catch (error) {
-            // alert("동일한 ID가 존재합니다.")
+            alert("동일한 ID가 존재합니다.")
             console.log(error);
           }
       }
@@ -127,42 +127,42 @@ const Findlogin = () =>{
     
 
     return(
-        <div>
+        <div className="findloginMain">
+        <div className="findloginT">
             <form onSubmit={findbyemail}>
             <label>
-                <p className="emailp">email</p>              
-                <input className="inputbox" type="text" name="memail" onChange={getMember}></input>
-            </label>                
-            <button className="loginBt3d" type="submit"><span>Click</span><span>등록정보 찾기</span></button>
+            <p>1. Email로 ID, PW 찾기</p>                
+                <input className="inputbox" type="text" name="memail" onChange={getMember} placeholder="email 주소"></input>
+            </label>
+
+            <button className="loginBt3d" type="submit"><span>Click</span><span>등록정보 발송</span></button>
             </form>
-            <form onSubmit={updateInfo}>
+            <form onSubmit={updateInfo} className="InfoForm">
             <label>
-                <p className="emailp">email</p>              
-                <input className="inputbox" type="text" name="memail" onChange={getMember}></input>
+                <p className="emailp">2. Email로 등록정보 수정하기</p>              
+                <input className="inputbox" type="text" name="memail" onChange={getMember} placeholder="email 주소"></input>
             </label>                
-            <button className="loginBt3d" type="submit"><span>Click</span><span>등록정보 수정</span></button>
+            <button className="loginBt3d" type="submit"><span>Click</span><span>인증번호 발송</span></button>
            
             </form>
             {showauthForm && (
-            <form onSubmit={authorizePr}>
+            <form onSubmit={authorizePr} className="InfoForm">
             <label>
-                인증번호
-                <input className="inputbox" type="text" name="authorize" onChange={getnumber}/>
+                <input className="inputbox" type="text" name="authorize" onChange={getnumber} placeholder="인증번호"/>
                 <button className="loginBt3d" type="submit"><span>Click</span><span>확인</span></button>
             </label>
             </form>
             )}
             {updatemem && (
-            <form onSubmit={updateidpw}>
+            <form onSubmit={updateidpw} className="InfoForm">
             <label>
-                ID
-                <input className="inputbox" type="text" name="mid" onChange={getinfo}/>
-                PW
-                <input className="inputbox" type="password" name="password" onChange={getinfo}/>
+                <input className="inputbox" type="text" name="mid" onChange={getinfo} placeholder="Nwe ID"/>
+                <input className="inputbox" type="text" name="password" onChange={getinfo} placeholder="New Password"/>
                 <button className="loginBt3d" type="submit"><span>Click</span><span>확인</span></button>
             </label>
             </form>
             )}
+        </div>
         </div>
              
     )

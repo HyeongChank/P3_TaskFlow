@@ -1,6 +1,6 @@
 import { useState } from "react";
 import './mainpage.css';
-import Findlogin from "./Findlogin";
+
 
 const Enrollmember = () => {
 
@@ -29,12 +29,12 @@ const Enrollmember = () => {
         const result = await response.text();
         if(result === '등록 성공'){
           alert("정상적으로 등록되었습니다.")
-            console.log('success');
+            // console.log('success');
            
         }
           // 받아온 데이터를 화면에 출력하는 코드 작성
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
     }
     const getMember = (e) =>{

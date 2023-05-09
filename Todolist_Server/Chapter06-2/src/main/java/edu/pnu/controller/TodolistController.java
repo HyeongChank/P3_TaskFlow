@@ -25,8 +25,8 @@ import edu.pnu.domain.Members;
 import edu.pnu.domain.Todolist;
 import edu.pnu.service.TodoService;
 
-//@CrossOrigin(origins = "https://todolist-45c52.web.app")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://todolist-45c52.web.app")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	
@@ -84,8 +84,6 @@ public class TodolistController {
 		String mid = mb.getMid();
 		System.out.println(mid);
 		memberList.add(mb);
-
-		HttpHeaders headers = new HttpHeaders();
 
 		return ts.insertMembers(mb, mid, memberList);
 	}

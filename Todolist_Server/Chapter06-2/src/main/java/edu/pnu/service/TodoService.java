@@ -172,6 +172,7 @@ public class TodoService {
 
 //		List<Members> lmb = (List<Members>) mr.findAll();
 		List<Members> lms = mr.findByMemail(mb.getMemail());
+		System.out.println("lms"+lms);
 		for(Members ms : lms) {
 			System.out.println(ms.getMemail());
 			if(!ms.getMid().equals(newid)) {

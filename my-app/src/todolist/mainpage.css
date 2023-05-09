@@ -165,15 +165,17 @@ h1{
 .loginp{
   width: 180px;
   margin-bottom: 0px;
-  color: white;
+  color: black;
 }
-.findloginInf{
-  background-color: yellow;
-  margin-top: 10px;
+.forgot{
+  margin-top: 30px;
+  color: white;
+  margin-bottom: 0px;
 }
 
 .inputbox{
   width: 150px;
+  margin-right: 10px;
 
 }
 
@@ -184,7 +186,32 @@ h1{
   margin-bottom: 20px;
   justify-content: flex-end;
   align-items: center;
-
+}
+.findloginMain{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: skyblue;
+  height: 1000px;
+  
+}
+.findloginT{
+  width: 500px;
+  height: 500px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  margin-top: 100px;
+}
+.emailp{
+  margin-top: 100px;
+}
+.InfoForm{
+  margin-bottom: 30px;
 }
 
 
@@ -206,7 +233,7 @@ h1{
 
 .loginBt3d span {
     background: rgb(0,172,238);
-    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+    background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgb(131, 2, 251) 100%);
     display: block;
     position: absolute;
     width: 130px;
@@ -282,7 +309,7 @@ h1{
 
 .logoutBt3d span {
 
-  background: linear-gradient(0deg, rgb(2, 161, 253) 0%, rgb(172, 2, 251) 100%);
+  background: linear-gradient(0deg, rgb(2, 161, 253) 0%, rgb(3, 118, 250) 100%);
   display: block;
   position: absolute;
   width: 130px;

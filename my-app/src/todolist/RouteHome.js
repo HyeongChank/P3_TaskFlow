@@ -1,9 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+
 import BClock from "./BClock";
 import BLongin from "./BLogin";
 import Backdisplay from "./Backdisplay";
 import Enrollmember from "./Enrollmember";
-import Findlogin from "./Findlogin";
+
 
 
 const RouteHome = (props) =>{

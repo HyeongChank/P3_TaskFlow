@@ -1,8 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import BClock from "./BClock";
 import BLongin from "./BLogin";
 import Backdisplay from "./Backdisplay";
 import Enrollmember from "./Enrollmember";
+
 
 
 const RouteHome = (props) =>{
@@ -39,7 +40,12 @@ const RouteHome = (props) =>{
     //     }
 
     // };    
-    
+ 
+    const navigate = useNavigate();
+
+    function buttest() {
+      navigate('/Ttest');
+    } 
     return(
         
         <div className='Tmain'>
@@ -50,7 +56,9 @@ const RouteHome = (props) =>{
             <div className="loginclock"><BClock/></div>
             <div className="logintotal">
                 {/* <div className='loginArea'> */}
+                    <div className="logint"><button onClick={buttest}>test</button></div>
 
+        
                     <div className="loginleft"><BLongin/></div>
                     <div className="loginright"><Enrollmember/></div>
                 {/* </div> */}

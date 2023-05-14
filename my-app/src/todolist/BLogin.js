@@ -28,7 +28,6 @@ const BLongin = () =>{
             }
             const result = await response.json();
             if(result.key1 === '로그인 성공'){
-                console.log('success');
                 // navigate로 페이지 이동 시 파라미터 전달 방법 2가지
                 // 1. url에 넣어서 보내기 : navigate(`/p?mid=${data.mid}`);
                 // 2. state 로 보내기
@@ -39,7 +38,7 @@ const BLongin = () =>{
             } 
         } catch(error){
             alert('Id, Password 가 잘못되었습니다. 다시 입력해 주세요')
-            console.log(error);
+            // console.log(error);
         }
 
     };   
@@ -49,6 +48,10 @@ const BLongin = () =>{
           } else if (e.target.name === "password") {
             setMemberpw(e.target.value);
           }        
+    }
+
+    const findloginInf = () =>{
+        navigate('/f');
     }
     return(
         <div className="loginpage">
@@ -61,8 +64,12 @@ const BLongin = () =>{
                     <p className="loginp">PASSWORD</p>
                     <input className="inputbox" type="password" name="password" onChange={loginbasic}></input>
                 </label>
-                    <button className="loginBt3d" type="submit"><span>Click</span><span>기사용자 입장</span></button>
+                    <button className="loginBt3d" type="submit"><span className="sp1">Click</span><span>기사용자 입장</span></button>
+                    <p className="forgot">If you forgot ID or PW</p>
+                    <button className="loginBt3d" onClick={findloginInf}><span className="sp1">Click</span><span>Find ID, PW</span></button>
             </form>
+
+
         </div>
     )
 }

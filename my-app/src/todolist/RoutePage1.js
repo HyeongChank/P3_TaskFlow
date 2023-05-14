@@ -16,13 +16,13 @@ const RoutePage1 = () => {
     const [todo, setTodo] = useState("");
     const [content, setContent] = useState("");
 
-    const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
-    const appStyle = {
-      backgroundImage: `url(${backgroundImageUrl})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      minHeight: '100vh',
-    }
+    // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
+    // const appStyle = {
+    //   backgroundImage: `url(${backgroundImageUrl})`,
+    //   backgroundSize: 'cover',
+    //   backgroundPosition: 'center',
+    //   minHeight: '100vh',
+    // }
 
 
     const onChange = (newValue) =>{
@@ -54,7 +54,7 @@ const RoutePage1 = () => {
     }
     // 삭제 기능 추가    
     const deletetodo = async(item) =>{
-        console.log("delete", item)       
+        // console.log("delete", item)       
         try{
             const response = await fetch("http://localhost:8080/api/delete", {
                 method: "POST",
@@ -64,17 +64,17 @@ const RoutePage1 = () => {
                 body: JSON.stringify(item),
               });
             const data = await response.json();
-            console.log(data)
+            // console.log(data)
             handleClick(value);
         } catch(error){
-            console.log(error);
+            // console.log(error);
         }
     }
 
     // 수정 기능 추가    
     const updatetodo = async(item) =>{
-        console.log("update", item)
-        console.log("updatedata", data)
+        // console.log("update", item)
+        // console.log("updatedata", data)
 
         try{
             const response = await fetch("http://localhost:8080/api/update", {
@@ -89,14 +89,14 @@ const RoutePage1 = () => {
                   }),
               });
             const data = await response.json();
-            console.log(data)
+            // console.log(data)
             handleClick(value);
         } catch(error){
-            console.log(error);
+            // console.log(error);
         }
     }
     const successtodo = async(item) =>{
-        console.log(item)
+        // console.log(item)
         try{
             const response = await fetch("http://localhost:8080/api/success", {
                 method: "POST",
@@ -113,13 +113,13 @@ const RoutePage1 = () => {
             }
             const result = await response.text();
             if(result === 'success'){
-                console.log('success');
+                // console.log('success');
                 successEvent()
             } else{
-                console.log('Ntime');
+                // console.log('Ntime');
             }
         } catch(error){
-            console.error(error);
+            // console.error(error);
         }
     }
     const successEvent = () => {
@@ -201,11 +201,11 @@ const RoutePage1 = () => {
               }),
           });
           // 애초에 받아온 정보의 json형태 
-          const data = await response.json();
-          console.log("insert", data);
+        //   const data = await response.json();
+        //   console.log("insert", data);
 
         } catch (error) {
-          console.error(error);
+        //   console.error(error);
         }
     };
 
@@ -224,7 +224,7 @@ const RoutePage1 = () => {
         //   console.log('ddddd', data)
           setData(data)
         } catch (error) {
-          console.log(error);
+        //   console.log(error);
         }
     };
 
@@ -234,7 +234,8 @@ const RoutePage1 = () => {
 
 
     return(
-        <div className='Tmain' style={appStyle}>
+        // <div className='Tmain' style={appStyle}>
+        <div className='Tmain'>
         <div className='secondmain'>
             <span className="mainT">Todolist</span>
             <div className="clockLogout">

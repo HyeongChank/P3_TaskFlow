@@ -1,16 +1,19 @@
 # Todolist
 ```shell
-* [v] Spring
-* [v] React
+* [v] Spring 3.0.5(Maven)
+* [v] React : react@18.2.0
+* [v] JDK 17.0.5
+* [v] Database : h2
+* [v] 배포 클라우드 : Firebase 
 ```
 
 ## 기능
 - 달력을 통한 날짜 확인
-- 일자별 할일 등록, 삭제(Spring, DB 연동)
+- 일자별 할일 등록, 삭제(DB 연동)
 - Todolist 수정 기능 추가
 - 로그인, 회원가입 기능 추가(5/3)
 - Browser 통한 페이지 이동
-- 회원정보 forgot 시 메일 인증번호 발송
+- 회원정보 분실 시 메일 인증번호 발송
 - 회원정보 수정
 - 할일 달성에 따른 이벤트 효과
 

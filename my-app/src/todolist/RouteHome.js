@@ -5,7 +5,7 @@ import Backdisplay from "./Backdisplay";
 import Enrollmember from "./Enrollmember";
 
 
-
+// props를 main페이지로부터 받음
 const RouteHome = (props) =>{
     // const navigate = useNavigate();
 

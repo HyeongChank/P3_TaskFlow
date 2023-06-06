@@ -1,5 +1,10 @@
 package edu.pnu.service;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,13 +13,20 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import edu.pnu.domain.ImageLoad;
 import edu.pnu.domain.Members;
 import edu.pnu.domain.Todolist;
+import edu.pnu.persistence.ImageLoadRepository;
 import edu.pnu.persistence.MemberRepository;
 import edu.pnu.persistence.TodoRepository;
+
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -27,6 +39,9 @@ public class TodoService {
 
 	@Autowired
 	private MemberRepository mr;
+	
+	@Autowired
+	private ImageLoadRepository ir;
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
@@ -187,5 +202,40 @@ public class TodoService {
 
 		
 	}
-	
+	public String insertimage(MultipartFile file, String cdate, String mid) throws IOException{
+		System.out.println("service");
+		String folder = "D:/김형찬/upload/";
+		byte[] bytes = file.getBytes();
+		Path path = Paths.get(folder + file.getOriginalFilename());
+		Files.write(path, bytes);
+		
+		ImageLoad image = new ImageLoad();
+		image.setPath(path.toString());
+		image.setCdate(cdate);
+		image.setMid(mid);
+		ir.save(image);
+		return "success";
+	}
+
+	public ResponseEntity<Resource> getimage(String mid, String cdate) throws MalformedURLException {
+		System.out.println("service");
+
+
+        // 이미지를 가져올 경로를 데이터베이스에서 찾습니다.
+        ImageLoad image = ir.findByMidAndCdate(mid, cdate).get(0);
+        
+       
+    	System.out.println(image);
+        Path path = Paths.get(image.getPath());
+        Resource resource = new UrlResource(path.toUri());
+        System.out.println(resource);
+   
+	    return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType("image/png"))  // 적절한 MIME 타입으로 변경하세요
+                .body(resource);
+        
+	        // 이미지 파일을 불러옵니다.
+	    
+    }
 }
+

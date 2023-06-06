@@ -1,6 +1,8 @@
 package edu.pnu.controller;
 
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,6 +11,8 @@ import java.util.Map;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,15 +22,22 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.pnu.domain.ImageLoad;
 import edu.pnu.domain.Members;
 import edu.pnu.domain.Todolist;
 import edu.pnu.service.TodoService;
 
-@CrossOrigin(origins = "https://todolist-45c52.web.app")
-//@CrossOrigin(origins = "http://localhost:3000")
+
+//@CrossOrigin(origins = "https://todolist-45c52.web.app")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	
@@ -54,6 +65,30 @@ public class TodolistController {
 //		return ts.insertTodo(todoList);
 //	}
 //	
+	@PostMapping("/api/insertimage")
+	public ResponseEntity<String> insertImage(
+			@RequestParam("file") MultipartFile file, 
+			@RequestParam("imageLoad") String imageLoadStr) throws IOException {
+		ImageLoad imageload = new ObjectMapper().readValue(imageLoadStr, ImageLoad.class);
+		System.out.println("imageLoad");
+		String cdate = imageload.getCdate();
+		String mid = imageload.getMid();
+		System.out.println(cdate);
+		System.out.println(mid);
+		return ResponseEntity.ok(ts.insertimage(file, cdate, mid));
+	}
+	@PostMapping("/api/getimage")
+	public ResponseEntity<Resource> getimage(@RequestBody ImageLoad imageload) throws MalformedURLException{
+		System.out.println(imageload);
+		String mid = imageload.getMid();
+	    String cdate = imageload.getCdate();
+	    System.out.println(mid + cdate);
+
+				
+		return ts.getimage(mid, cdate);
+
+	}
+	
 	@PostMapping("/api/insertone")
 	public List<Todolist> insertone(@RequestBody Todolist tl) {
 		List<Todolist> todoList = new ArrayList<>();
@@ -87,6 +122,7 @@ public class TodolistController {
 
 		return ts.insertMembers(mb, mid, memberList);
 	}
+	
 	
 	@PostMapping("/api/login")
 	public ResponseEntity<Map<String,String>> getMembers(@RequestBody Members mb){

@@ -16,7 +16,10 @@ const RoutePage1 = () => {
     const [todo, setTodo] = useState("");
     const [content, setContent] = useState("");
     const [selectedFile, setSelectedFile] = useState();
+<<<<<<< HEAD
     const [imageUrl, setImageUrl] = useState(null);
+=======
+>>>>>>> 366602771b02b8df18ffb8a2845019671e5857e6
     // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
     // const appStyle = {
     //   backgroundImage: `url(${backgroundImageUrl})`,
@@ -245,6 +248,40 @@ const RoutePage1 = () => {
             mid: mid
         }));
 
+    const fileSelectedHandler = event =>{
+        setSelectedFile(event.target.files[0]);
+    };
+    const fileUploadHandler = async(event) =>{
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('data', JSON.stringify({
+            cdate: moment(value).format("YYYY-MM-DD"),
+            mid: mid
+        }));
+
+
+        try{
+            const response = await fetch("http://localhost:8080/api/insertimage", {
+                method: "POST",
+                body:formData,
+                headers:{
+                    
+                }
+            });
+            if(!response.ok){
+                throw new Error('error')
+            }
+            else{
+                const data = await response.text();
+                console.log(data);
+            }
+        }
+        catch (error){
+            console.log('error' + error)
+        }
+    }
+
 
         try{
             const response = await fetch("http://localhost:8080/api/insertimage", {
@@ -327,6 +364,7 @@ const RoutePage1 = () => {
                     </label>
                         <button className='Bt' type="submit">등록</button>
                 </form>
+<<<<<<< HEAD
                 <form encType="multipart/form-data" onSubmit={fileUploadHandler}>
                     <input type="file" name="file" onChange={fileSelectedHandler} />
                     <input type="submit" value="Upload" />
@@ -334,6 +372,13 @@ const RoutePage1 = () => {
                 <img src={imageUrl} alt="From server" />
 
                 </div>
+=======
+                <form action="http://localhost:8080/api/insertimage" method="post" encType="multipart/form-data" onSubmit={fileUploadHandler}>
+                    <input type="file" name="file" onChange={fileSelectedHandler} />
+                    <input type="submit" value="Upload" />
+                </form>
+            </div>
+>>>>>>> 366602771b02b8df18ffb8a2845019671e5857e6
 
         </div>
         </div>

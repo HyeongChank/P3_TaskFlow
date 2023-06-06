@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 const Backdisplay = () =>{
     const c1_s1_style = {
         top: '142px',

@@ -213,6 +213,10 @@ h1{
 .InfoForm{
   margin-bottom: 30px;
 }
+.imagespot img {
+  width: 300px;
+  height: auto;
+}
 
 
 .loginBt3d{

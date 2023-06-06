@@ -1,0 +1,5 @@
+img css 넣는 방법
+.imagespot img {
+  width: 300px;
+  height: auto;
+}

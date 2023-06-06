@@ -77,7 +77,7 @@ public class TodolistController {
 		System.out.println(mid);
 		return ResponseEntity.ok(ts.insertimage(file, cdate, mid));
 	}
-	@PostMapping("/api/getimage")
+	@PostMapping("/api/getImage")
 	public ResponseEntity<Resource> getimage(@RequestBody ImageLoad imageload) throws MalformedURLException{
 		System.out.println(imageload);
 		String mid = imageload.getMid();

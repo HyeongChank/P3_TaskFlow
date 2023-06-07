@@ -51,11 +51,11 @@ public class TodoService {
 		return (List<Todolist>) tr.findAll();
 	}
 
-	public List<Todolist> insertTodo(List<Todolist> todoList) {
+	public ResponseEntity<String> insertTodo(List<Todolist> todoList) {
 		for(int i=0; i<todoList.size(); i++) {
 			tr.save(todoList.get(i));
 		}
-		return todoList;
+		return ResponseEntity.ok().body("success");
 	}
 
 	public List<Todolist> deleteTodo(List<Todolist> todoList) {
@@ -202,7 +202,7 @@ public class TodoService {
 
 		
 	}
-	public String insertimage(MultipartFile file, String cdate, String mid) throws IOException{
+	public String insertimage(MultipartFile file, String cdate, String mid, int num) throws IOException{
 		System.out.println("service");
 		String folder = "D:/김형찬/upload/";
 		byte[] bytes = file.getBytes();
@@ -213,18 +213,27 @@ public class TodoService {
 		image.setPath(path.toString());
 		image.setCdate(cdate);
 		image.setMid(mid);
+		image.setNum(num);
 		ir.save(image);
 		return "success";
 	}
 
-	public ResponseEntity<Resource> getimage(String mid, String cdate) throws MalformedURLException {
+	public ResponseEntity<Resource> getimage(String mid, String cdate, int num) throws MalformedURLException {
 		System.out.println("service");
-
+//		List<ResponseEntity> re = new ArrayList<>();
+//		List<ImageLoad> imagelist = ir.findByMidAndCdate(mid, cdate);
+//		for(ImageLoad il : imagelist) {
+//			System.out.println(il);
+//			Path pt = Paths.get(il.getPath());
+//			Resource rs = new UrlResource(pt.toUri());
+//			ResponseEntity result = ResponseEntity.ok().contentType(MediaType.parseMediaType("image/png")).body(rs);
+//			re.add(result);
+//			
+//		}
 
         // 이미지를 가져올 경로를 데이터베이스에서 찾습니다.
-        ImageLoad image = ir.findByMidAndCdate(mid, cdate).get(0);
-        
-       
+//        ImageLoad image = ir.findByMidAndCdate(mid, cdate).get(0);
+        ImageLoad image = ir.findByMidAndCdateAndNum(mid, cdate, num).get(0);       
     	System.out.println(image);
         Path path = Paths.get(image.getPath());
         Resource resource = new UrlResource(path.toUri());
@@ -234,8 +243,6 @@ public class TodoService {
                 .contentType(MediaType.parseMediaType("image/png"))  // 적절한 MIME 타입으로 변경하세요
                 .body(resource);
         
-	        // 이미지 파일을 불러옵니다.
-	    
     }
 }
 

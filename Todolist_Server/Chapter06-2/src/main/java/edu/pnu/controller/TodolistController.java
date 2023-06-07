@@ -67,7 +67,8 @@ public class TodolistController {
 //	
 	@PostMapping("/api/insertimage")
 	public ResponseEntity<String> insertImage(
-			@RequestParam("file") MultipartFile file, 
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("num") int num,
 			@RequestParam("imageLoad") String imageLoadStr) throws IOException {
 		ImageLoad imageload = new ObjectMapper().readValue(imageLoadStr, ImageLoad.class);
 		System.out.println("imageLoad");
@@ -75,22 +76,24 @@ public class TodolistController {
 		String mid = imageload.getMid();
 		System.out.println(cdate);
 		System.out.println(mid);
-		return ResponseEntity.ok(ts.insertimage(file, cdate, mid));
+		System.out.println(num);
+		return ResponseEntity.ok(ts.insertimage(file, cdate, mid, num));
 	}
 	@PostMapping("/api/getImage")
 	public ResponseEntity<Resource> getimage(@RequestBody ImageLoad imageload) throws MalformedURLException{
 		System.out.println(imageload);
 		String mid = imageload.getMid();
 	    String cdate = imageload.getCdate();
+	    int num = imageload.getNum();
 	    System.out.println(mid + cdate);
 
 				
-		return ts.getimage(mid, cdate);
+		return ts.getimage(mid, cdate, num);
 
 	}
 	
 	@PostMapping("/api/insertone")
-	public List<Todolist> insertone(@RequestBody Todolist tl) {
+	public ResponseEntity<String> insertone(@RequestBody Todolist tl) {
 		List<Todolist> todoList = new ArrayList<>();
 		todoList.add(tl);
 		return ts.insertTodo(todoList);

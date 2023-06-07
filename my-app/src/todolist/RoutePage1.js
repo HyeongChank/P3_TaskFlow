@@ -17,6 +17,10 @@ const RoutePage1 = () => {
     const [content, setContent] = useState("");
     const [selectedFile, setSelectedFile] = useState();
     const [imageUrl, setImageUrl] = useState(null);
+    const [imageUrl2, setImageUrl2] = useState(null);
+    const [number1] = useState(1);
+    const [number2] = useState(2);
+    const [achieve, setAchieve] = useState();
     // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
     // const appStyle = {
     //   backgroundImage: `url(${backgroundImageUrl})`,
@@ -46,7 +50,7 @@ const RoutePage1 = () => {
                             <button className='Bt' onClick={() => successtodo(item)}>달성</button>
 
                         </div>
-                        <p className='dbcontent'>TodoContent : {item.content}</p>
+                        <p className='dbcontent'>TodoContent : {item.content} * {achieve}</p>
                         {/* <p className='dbsuccess'>{item.success}</p> */}
                     </div>
                 );
@@ -116,6 +120,7 @@ const RoutePage1 = () => {
             if(result === 'success'){
                 // console.log('success');
                 successEvent()
+                setAchieve("달성 완료")
             } else{
                 // console.log('Ntime');
             }
@@ -201,9 +206,16 @@ const RoutePage1 = () => {
                 mid: mid,
               }),
           });
-          // 애초에 받아온 정보의 json형태 
-        //   const data = await response.json();
-        //   console.log("insert", data);
+            if(!response.ok){
+                throw new Error('getsuccess error');
+            }
+            const result = await response.text();
+            if(result === 'success'){
+                console.log('success');
+                alert("일정 등록 완료")
+            } else{
+                console.log('error');
+            }
 
         } catch (error) {
         //   console.error(error);
@@ -233,7 +245,8 @@ const RoutePage1 = () => {
         navigate('/');
     }
     // 이미지 db 저장 부분
-
+    // 클라이언트에 저장되어 있는 이미지의 절대경로를 같이 서버로 보내는 건 불가능
+    // 웹에서 사용자의 파일 시스템의 직접적인 접근을 허용하지 않음
     const fileSelectedHandler = event =>{
         setSelectedFile(event.target.files[0]);
     };
@@ -241,6 +254,39 @@ const RoutePage1 = () => {
         event.preventDefault();
         const formData = new FormData();
         formData.append('file', selectedFile);
+        formData.append('num', number1);
+        formData.append('imageLoad', JSON.stringify({
+            cdate: moment(value).format("YYYY-MM-DD"),
+            mid: mid
+        }));
+
+        try{
+            const response = await fetch("http://localhost:8080/api/insertimage", {
+                method: "POST",
+                body:formData,
+                // headers:{
+                // }
+            });
+            if(!response.ok){
+                throw new Error('error')
+            }
+            else{
+                const data = await response.text();
+                console.log(data);
+            }
+        }
+        catch (error){
+            console.log('error' + error)
+        }
+    }
+    const fileSelectedHandler2 = event =>{
+        setSelectedFile(event.target.files[0]);
+    };
+    const fileUploadHandler2 = async(event) =>{
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('num', number2);
         formData.append('imageLoad', JSON.stringify({
             cdate: moment(value).format("YYYY-MM-DD"),
             mid: mid
@@ -266,8 +312,7 @@ const RoutePage1 = () => {
         }
     }
 
-    
-    const getImage = async() =>{
+    const getImage1 = async() =>{
     try{
         const response = await fetch("http://localhost:8080/api/getImage", {
             method: "POST",
@@ -276,19 +321,40 @@ const RoutePage1 = () => {
             },
             body: JSON.stringify({
                 mid: mid,
-                cdate: moment(value).format("YYYY-MM-DD")
+                cdate: moment(value).format("YYYY-MM-DD"),
+                num: 1
 
             }),
         });
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         setImageUrl(url);
-        // console.log(data)
     }
     catch (error){
         console.log('error' + error)
     }};
+
+    const getImage2 = async() =>{
+        try{
+            const response = await fetch("http://localhost:8080/api/getImage", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mid: mid,
+                    cdate: moment(value).format("YYYY-MM-DD"),
+                    num: 2
     
+                }),
+            });
+            const blob = await response.blob();
+            const url2 = URL.createObjectURL(blob);
+            setImageUrl2(url2);
+        }
+        catch (error){
+            console.log('error')
+        }};
 
     return(
         // <div className='Tmain' style={appStyle}>
@@ -324,17 +390,27 @@ const RoutePage1 = () => {
                     </label>
                         <button className='Bt' type="submit">등록</button>
                 </form>
-                <form encType="multipart/form-data" onSubmit={fileUploadHandler}>
-                    <input type="file" name="file" onChange={fileSelectedHandler} />
-                    <input type="submit" value="Upload" />
-                </form>
-                <div className="imagespot">
-
-                    <button onClick={getImage}>Get Image</button>
-                    {imageUrl && <img src={imageUrl} alt="From server" />}
-
+                <div>
+                    <p>이미지 저장</p>
+                    <form encType="multipart/form-data" onSubmit={fileUploadHandler}>
+                        <span>{number1}</span>
+                        <input type="file" name="file" onChange={fileSelectedHandler} />
+                        <input type="submit" value="Upload" />
+                    </form>
+                    <div className="imagespot">
+                        <button onClick={getImage1}>Get Image</button>
+                        {imageUrl && <img src={imageUrl} alt="From server" />}
+                    </div>
+                    <form encType="multipart/form-data" onSubmit={fileUploadHandler2}>
+                        <span>{number2}</span>
+                        <input type="file" name="file" onChange={fileSelectedHandler2} />
+                        <input type="submit" value="Upload" />
+                    </form>
+                    <div className="imagespot">
+                        <button onClick={getImage2}>Get Image</button>
+                        {imageUrl2 && <img src={imageUrl2} alt="From server" />}
+                    </div>
                 </div>
-
                 </div>
 
         </div>

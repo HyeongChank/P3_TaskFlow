@@ -220,19 +220,7 @@ public class TodoService {
 
 	public ResponseEntity<Resource> getimage(String mid, String cdate, int num) throws MalformedURLException {
 		System.out.println("service");
-//		List<ResponseEntity> re = new ArrayList<>();
-//		List<ImageLoad> imagelist = ir.findByMidAndCdate(mid, cdate);
-//		for(ImageLoad il : imagelist) {
-//			System.out.println(il);
-//			Path pt = Paths.get(il.getPath());
-//			Resource rs = new UrlResource(pt.toUri());
-//			ResponseEntity result = ResponseEntity.ok().contentType(MediaType.parseMediaType("image/png")).body(rs);
-//			re.add(result);
-//			
-//		}
 
-        // 이미지를 가져올 경로를 데이터베이스에서 찾습니다.
-//        ImageLoad image = ir.findByMidAndCdate(mid, cdate).get(0);
         ImageLoad image = ir.findByMidAndCdateAndNum(mid, cdate, num).get(0);       
     	System.out.println(image);
         Path path = Paths.get(image.getPath());

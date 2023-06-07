@@ -50,11 +50,8 @@ const RouteHome = (props) =>{
             <h1>Todolist</h1>
             <div className="loginclock"><BClock/></div>
             <div className="logintotal">
-                {/* <div className='loginArea'> */}
-
                     <div className="loginleft"><BLongin/></div>
                     <div className="loginright"><Enrollmember/></div>
-                {/* </div> */}
             </div>
         </div>
         <Backdisplay/>

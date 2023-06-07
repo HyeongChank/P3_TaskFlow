@@ -28,12 +28,11 @@ const RoutePage1 = () => {
     //   backgroundPosition: 'center',
     //   minHeight: '100vh',
     // }
-
+    const localhost = 8080;
 
     const onChange = (newValue) =>{
         setValue(newValue);
     };
-
     const renderSchedules = () =>{
         const filterData = data.filter((item) => item.mid ===mid);
         return filterData
@@ -48,9 +47,9 @@ const RoutePage1 = () => {
                             <button className='Bt' onClick={() => updatetodo(item)}>수정</button>                            
                             <button className='Bt' onClick={() => deletetodo(item)}>삭제</button>
                             <button className='Bt' onClick={() => successtodo(item)}>달성</button>
-
+                            <p>{achieve}</p>
                         </div>
-                        <p className='dbcontent'>TodoContent : {item.content} * {achieve}</p>
+                        <p className='dbcontent'>TodoContent : {item.content}</p>
                         {/* <p className='dbsuccess'>{item.success}</p> */}
                     </div>
                 );
@@ -61,7 +60,7 @@ const RoutePage1 = () => {
     const deletetodo = async(item) =>{
         // console.log("delete", item)       
         try{
-            const response = await fetch("http://localhost:8080/api/delete", {
+            const response = await fetch(`http://localhost:${localhost}/api/delete`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -82,7 +81,7 @@ const RoutePage1 = () => {
         // console.log("updatedata", data)
 
         try{
-            const response = await fetch("http://localhost:8080/api/update", {
+            const response = await fetch(`http://localhost:${localhost}/api/update`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -103,7 +102,7 @@ const RoutePage1 = () => {
     const successtodo = async(item) =>{
         // console.log(item)
         try{
-            const response = await fetch("http://localhost:8080/api/success", {
+            const response = await fetch(`http://localhost:${localhost}/api/success`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -192,7 +191,7 @@ const RoutePage1 = () => {
         event.preventDefault();
         try {
             // 서버와 연결하고 요청을 보내고, 응답을 받아서 response에 저장
-          const response = await fetch("http://localhost:8080/api/insertone", {
+          const response = await fetch(`http://localhost:${localhost}/api/insertone`, {
             // 서버에 전송할 데이터 형식 지정
             method: "POST",
             headers: {
@@ -232,7 +231,7 @@ const RoutePage1 = () => {
     // setdata 부분
     const handleClick = async (value) => {
         try {
-          const response = await fetch("http://localhost:8080/api/model");
+          const response = await fetch(`http://localhost:${localhost}/api/model`);
           const data = await response.json();
         //   console.log('ddddd', data)
           setData(data)
@@ -261,7 +260,7 @@ const RoutePage1 = () => {
         }));
 
         try{
-            const response = await fetch("http://localhost:8080/api/insertimage", {
+            const response = await fetch(`http://localhost:${localhost}/api/insertimage`, {
                 method: "POST",
                 body:formData,
                 // headers:{
@@ -293,7 +292,7 @@ const RoutePage1 = () => {
         }));
 
         try{
-            const response = await fetch("http://localhost:8080/api/insertimage", {
+            const response = await fetch(`http://localhost:${localhost}/api/insertimage`, {
                 method: "POST",
                 body:formData,
                 // headers:{
@@ -314,7 +313,7 @@ const RoutePage1 = () => {
 
     const getImage1 = async() =>{
     try{
-        const response = await fetch("http://localhost:8080/api/getImage", {
+        const response = await fetch(`http://localhost:${localhost}/api/getImage`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -336,7 +335,7 @@ const RoutePage1 = () => {
 
     const getImage2 = async() =>{
         try{
-            const response = await fetch("http://localhost:8080/api/getImage", {
+            const response = await fetch(`http://localhost:${localhost}/api/getImage`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -357,7 +356,7 @@ const RoutePage1 = () => {
         }};
 
     return(
-        // <div className='Tmain' style={appStyle}>
+       
         <div className='Tmain'>
         <div className='secondmain'>
             <span className="mainT">Todolist</span>

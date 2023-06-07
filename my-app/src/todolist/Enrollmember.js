@@ -3,7 +3,7 @@ import './mainpage.css';
 
 
 const Enrollmember = () => {
-
+    const localhost = 8080;
     const [memberid, setMemberid] = useState();
     const [memberpw, setMemberpw] = useState();
     const [memberemail, setMemberemail] = useState();
@@ -11,7 +11,7 @@ const Enrollmember = () => {
     const enrollmembers = async(event) =>{
         event.preventDefault();
         try {
-          const response = await fetch("http://localhost:8080/api/insertMembers", {
+          const response = await fetch(`http://localhost:${localhost}/api/insertMembers`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

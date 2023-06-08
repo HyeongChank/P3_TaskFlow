@@ -119,15 +119,17 @@ public class TodoService {
 
 	}
 
-	public ResponseEntity<String> successTodo(Todolist tl, Long id) {
+	public ResponseEntity<String> successTodo(Todolist tl, Long id, String success) {
 		System.out.println(id);
 		List<Todolist> ltd = (List<Todolist>) tr.findAll();
 		for(Todolist td : ltd) {
 			if(td.getId()==id) {
-				if(td.getSuccess()==null) {
-					td.setSuccess("success");
-					tr.save(td);
-					return ResponseEntity.ok().body("success");
+				if(td.getSuccess()==success) {
+					if(td.getSuccess()==null) {
+						td.setSuccess("success");
+						tr.save(td);
+						return ResponseEntity.ok().body("success");
+					}
 				}
 			}
 		}

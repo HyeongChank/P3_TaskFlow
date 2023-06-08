@@ -121,7 +121,7 @@ const RoutePage1 = () => {
                 successEvent()
                 setAchieve("달성 완료")
             } else{
-                // console.log('Ntime');
+                alert("이미 달성한 일정입니다.")
             }
         } catch(error){
             // console.error(error);

@@ -136,10 +136,9 @@ public class TodolistController {
 	}
 	@PostMapping("/api/success")
 	public ResponseEntity<String> success(@RequestBody Todolist tl){
-		
 		Long id = tl.getId();
-		
-		return ts.successTodo(tl, id);
+		String success = tl.getSuccess();
+		return ts.successTodo(tl, id, success);
 	}
 	@PostMapping("/api/findlogin")
 	public ResponseEntity<String> findlogin(@RequestBody Members mb){

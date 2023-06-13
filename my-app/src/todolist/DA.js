@@ -32,6 +32,9 @@ const DA = () =>{
     const gotodoPage = () =>{
         navigate('/p', {state:{mid:mid}})
     }
+    const gohomepage = () =>{
+        navigate('/');
+    }
     const getdata = async(event) =>{
         event.preventDefault();
         setVisible(true);
@@ -134,6 +137,7 @@ const DA = () =>{
         <div>
             <div>
                 <button className='getdataBt' onClick={gotodoPage}>일정페이지 이동</button>
+                <button className='getdataBt' onClick={gohomepage}>로그아웃</button>
             </div>
         <div className='dapage'>
             <div>
@@ -149,13 +153,13 @@ const DA = () =>{
                     </div>)}
                 {Object.keys(counttodo).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>Id: {key}</p>
+                        <p id='analP'>I    d: {key}</p>
                         <p id='analP'>Count of Todo(개) : {counttodo[key]}</p>
                     </div>
                 ))}
                 {Object.keys(countsuccess).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>Count of Success : {countsuccess[key]}</p>
+                        <p id='analP'>Count of Success(개) : {countsuccess[key]}</p>
                     </div>
                 ))}
                     {/* <div>{totalTodoCount}</div>

@@ -355,6 +355,11 @@ const RoutePage1 = () => {
             console.log('error')
         }};
 
+    const goda = () =>{
+        navigate('/da', {state:{value: moment(value).format("YYYY-MM-DD"),
+                                mid:mid}});
+    }
+    
     return(
        
         <div className='Tmain'>
@@ -371,6 +376,7 @@ const RoutePage1 = () => {
             <div className='dvlist'>
                 <div className="dDate">
                     {moment(value).format("YYYY년 MM월 DD일")} 일정
+                    <button className="dabt" onClick={goda}>일정 분석</button>
                 </div>
                 <div className='dschedule'>
                     {renderSchedules()}

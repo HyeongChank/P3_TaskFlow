@@ -418,6 +418,65 @@ h1{
   outline: none;
 }
 
+.dapage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.getdataBt{
+  width: 150px;
+  height: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  margin-right: 5px;
+  background-color: rgba(0, 0, 0, 0.425);
+  color: white;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0px 0px 1px 1px rgb(0,0,0);
+}
+.startBt:hover{
+    background-color: black;
+    color: white;
+    transition: 0.7s;
+}
+.daDisplay{
+  background-color: skyblue;
+  width: 800px;
+  height: 800px;
+
+
+}
+.datextArea{
+  justify-content: left;
+  align-items: left;
+}
+.todoChart{
+  
+}
+.canvas{
+  background-color: white;
+  width: 800px;
+  height: 100%;
+}
+#cv{
+  border: 1px solid black;
+  width: 90%;
+}
+#analP{
+  font-weight: bold;
+  font-size: 23px;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
 
 
 /* 배경화면 */

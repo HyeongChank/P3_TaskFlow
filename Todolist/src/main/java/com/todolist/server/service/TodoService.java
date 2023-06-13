@@ -5,7 +5,9 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -156,7 +158,7 @@ public class TodoService {
 
 		return ResponseEntity.badRequest().body("no");
 	}
-
+	//인증번호 발송
 	public ResponseEntity<Map<String,String>> authenInfo(Members mb) {
 		String memail = mb.getMemail();
 		List<Members> lmb = (List<Members>) mr.findAll();
@@ -167,14 +169,14 @@ public class TodoService {
 			int randomn = random.nextInt(9)+1;
 			sb.append(String.valueOf(randomn));
 		}
-		String numn = String.valueOf(sb);
-		System.out.println(numn);
+		String authenNum = String.valueOf(sb);
+		System.out.println(authenNum);
 		String key1 = "key1";
 		for(Members ms : lmb) {
 			if(ms.getMemail().equals(memail)) {
 				
-				map.put(key1, numn);
-				sendMail(ms.getMemail(), "인증번호 발송", "인증번호는 : " + numn);
+				map.put(key1, authenNum);
+				sendMail(ms.getMemail(), "인증번호 발송", "인증번호는 : " + authenNum);
 				return ResponseEntity.ok().body(map);
 			}
 		}
@@ -235,11 +237,11 @@ public class TodoService {
     }
 
 	public List<Todolist> getanalysis(Todolist td) {
-		System.out.println(td.getCdate());
 		List<Integer> it = new ArrayList<>();
 		List<Todolist> tdl = tr.findByMid(td.getMid());
 		System.out.println(tdl);
-		
+		// yyyy-mm-dd 타입의 string간 비교를 통한 오름차순
+		tdl.sort(Comparator.comparing(t -> LocalDate.parse(t.getCdate())));
 		return tdl;
 	}
 

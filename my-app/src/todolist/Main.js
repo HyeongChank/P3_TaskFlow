@@ -166,22 +166,20 @@ const Main = () => {
                 </div>
             </div>
             <div className='new_list'>
-            <div className='enrolllist'>
-                <form onSubmit={handleaddSubmit}>
-                    <p>일정명</p>
-                    <label>
-                        <input type="text" name="todo" onChange={handlechange}></input>
-                    </label>
-                    <p>내용</p>
-                    <label>
-                        <input type="text" className='textarea' name="content" onChange={handlechange}></input>
-                    </label>
-                        <button type="submit">등록</button>
-                </form>
-
-
+                <div className='enrolllist'>
+                    <form onSubmit={handleaddSubmit}>
+                        <p>일정명</p>
+                        <label>
+                            <input type="text" name="todo" onChange={handlechange}></input>
+                        </label>
+                        <p>내용</p>
+                        <label>
+                            <input type="text" className='textarea' name="content" onChange={handlechange}></input>
+                        </label>
+                            <button type="submit">등록</button>
+                    </form>
                 </div>
-                </div>
+            </div>
                 </>
                 }
         </div>

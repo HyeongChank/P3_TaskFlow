@@ -20,7 +20,8 @@ const RoutePage1 = () => {
     const [imageUrl2, setImageUrl2] = useState(null);
     const [number1] = useState(1);
     const [number2] = useState(2);
-    const [achieve, setAchieve] = useState();
+    const [successtext, setSuccesstext] = useState({});
+
     // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
     // const appStyle = {
     //   backgroundImage: `url(${backgroundImageUrl})`,
@@ -35,22 +36,23 @@ const RoutePage1 = () => {
     };
     const renderSchedules = () =>{
         const filterData = data.filter((item) => item.mid ===mid);
+
         return filterData
         .map((item) => {
+            console.log(item)
             const formattedDate=moment(item.cdate).format("YYYY-MM-DD")
             if(formattedDate===moment(value).format("YYYY-MM-DD")){
                 return(
                     <div key={item.id}>
                         <div className='btGroup'>
                             <h3 className='dbtitle'>TodoTitle : {item.todo}</h3>
-
+                            {/* onclick = {() => 함수} 를 사용하는 이유 : 버튼을 클릭했을 때, item을 인자로 함수를 호출하기 위해서
+                            onclick = {함수} 로 사용하면 페이지가 렌더링 될 때 즉시 실행되기 때문에 */}
                             <button className='Bt' onClick={() => updatetodo(item)}>수정</button>                            
                             <button className='Bt' onClick={() => deletetodo(item)}>삭제</button>
-                            <button className='Bt' onClick={() => successtodo(item)}>달성</button>
-                            <p>{achieve}</p>
+                            <button className='Bt' onClick={() => successtodo(item)}>{successtext[item.id] || '달성'}</button>
                         </div>
                         <p className='dbcontent'>TodoContent : {item.content}</p>
-                        {/* <p className='dbsuccess'>{item.success}</p> */}
                     </div>
                 );
             }
@@ -100,7 +102,7 @@ const RoutePage1 = () => {
         }
     }
     const successtodo = async(item) =>{
-        // console.log(item)
+        console.log('successItem', item)
         try{
             const response = await fetch(`http://localhost:${localhost}/api/success`, {
                 method: "POST",
@@ -116,11 +118,17 @@ const RoutePage1 = () => {
                 throw new Error('getsuccess error');
             }
             const result = await response.text();
+            console.log(result);
             if(result === 'success'){
                 // console.log('success');
                 successEvent()
-                setAchieve("달성 완료")
-            } else{
+                // item 중 id에 해당하는 item의 text만 변경, 나머지 id의 text는 기존 유지
+                setSuccesstext(prevState =>({
+                    ...prevState,
+                    [item.id]: '달성완료'
+                }));
+                console.log(successtext)
+            } else if(result==='Ntime'){
                 alert("이미 달성한 일정입니다.")
             }
         } catch(error){
@@ -370,7 +378,7 @@ const RoutePage1 = () => {
             </div>
             <div className='calendar_container'>
                 <p>Calendar</p>
-                <Calendar onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
+                <Calendar className="calendarsize" onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
 
             </div>    
             <div className='dvlist'>

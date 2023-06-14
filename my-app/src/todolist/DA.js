@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
+import TodoWordAnal from './TodoWordAnal';
 
 
 
@@ -26,6 +27,7 @@ const DA = () =>{
     const location = useLocation();
     const value = location.state.value;
     const mid = location.state.mid;
+    const [wordanal, setWordanal] = useState();
 
     console.log(value);
     console.log(mid);
@@ -38,6 +40,7 @@ const DA = () =>{
     const getdata = async(event) =>{
         event.preventDefault();
         setVisible(true);
+
         try{
             const response = await fetch(`http://localhost:${localhost}/api/processDA`, {
                 method: "POST",
@@ -55,11 +58,19 @@ const DA = () =>{
             const result = await response.json();
             // console.log(result)
             setGettododate(result);
+
         } catch(error){
             // console.error(error);
         }
     }
     useEffect(()=>{
+        if(gettododata){
+            const todotitle = gettododata.map((i)=>i.todo)
+            const todocontent = gettododata.map((i)=>i.content)
+
+        setWordanal([todotitle, todocontent])
+        console.log('wordanal',wordanal)
+        };
         if(gettododata){
             const successcountBydate = gettododata.reduce((acc, item)=>{
                 if(item.success ==='success'){
@@ -148,28 +159,31 @@ const DA = () =>{
                 <div className='datextArea'>
                     <button className='getdataBt' onClick={getdata}>시작 버튼</button>
                     {visible && (<div>
-                        <p id='analP'><span>기    간 : </span>
+                        <p id='analP'><span>- 기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : </span>
                         {startdate} ~ {lastdate}</p>
                     </div>)}
                 {Object.keys(counttodo).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>I    d: {key}</p>
-                        <p id='analP'>Count of Todo(개) : {counttodo[key]}</p>
+                        <p id='analP'>- I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d : {key}</p>
+                        <p id='analP'>- Count of Todo(개) : {counttodo[key]}</p>
                     </div>
                 ))}
                 {Object.keys(countsuccess).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>Count of Success(개) : {countsuccess[key]}</p>
+                        <p id='analP'>- Count of Success(개) : {countsuccess[key]}</p>
                     </div>
                 ))}
                     {/* <div>{totalTodoCount}</div>
                     <div>{totalSuccessCount}</div> */}
                     {visible && (<div>
-                        <p id='analP'><span>일정 달성률 : </span>{countRatio}%</p>
+                        <p id='analP'><span>- 일정 달성률 : </span>{countRatio}%</p>
                     </div>)}
                 </div>
                 <div className='todoChart'>
                     <TodoChart datelist={datelist} countbydate={todolist} successbydate={successlist}/>
+                </div>
+                <div className='todoFrequent'>
+                    <TodoWordAnal wordanal={wordanal}/>
                 </div>
             </div>
         </div>

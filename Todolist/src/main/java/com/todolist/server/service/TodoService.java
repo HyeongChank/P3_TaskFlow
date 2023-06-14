@@ -125,16 +125,16 @@ public class TodoService {
 		List<Todolist> ltd = (List<Todolist>) tr.findAll();
 		for(Todolist td : ltd) {
 			if(td.getId()==id) {
-				if(td.getSuccess()==success) {
-					if(td.getSuccess()==null) {
-						td.setSuccess("success");
-						tr.save(td);
-						return ResponseEntity.ok().body("success");
-					}
+				System.out.println(td.getSuccess());
+				if(td.getSuccess()==null) {
+					td.setSuccess("success");
+					tr.save(td);
+					return ResponseEntity.ok().body("success");
 				}
 			}
 		}
-		return ResponseEntity.badRequest().body("Ntime");
+		System.out.println("중복");
+		return ResponseEntity.ok().body("Ntime");
 	}
     public void sendMail(String to, String subject, String text) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();

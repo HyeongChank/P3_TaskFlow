@@ -43,15 +43,18 @@ h1{
     transform: perspective(400px) rotateX(0deg); /* 회전 효과 */
     
   }
-
-  .dvlist {
-    width: 100%;
-    height: 300px;
-    background-color: hsla(197, 71%, 73%, 0.705);
-    margin-top: 30px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
-    
-  }
+.react-calendar.calendarsize{
+  width: 85%;
+  height: auto;
+}
+.dvlist {
+  width: 100%;
+  height: 300px;
+  background-color: hsla(197, 71%, 73%, 0.705);
+  margin-top: 30px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  
+}
 .dschedule{
   overflow: scroll;
   overflow-y: scroll;
@@ -436,7 +439,7 @@ h1{
   border-radius: 3px;
   box-shadow: 0px 0px 1px 1px rgb(0,0,0);
 }
-.startBt:hover{
+.getdataBt:hover{
     background-color: black;
     color: white;
     transition: 0.7s;
@@ -444,8 +447,8 @@ h1{
 .daDisplay{
   background-color: skyblue;
   width: 800px;
-  height: 800px;
-
+  height: 1100px;
+  border: 1px solid black;
 
 }
 .datextArea{
@@ -457,12 +460,64 @@ h1{
 }
 .canvas{
   background-color: white;
-  width: 800px;
+  width: 100%;
   height: 100%;
 }
 #cv{
+  /* border: 1px solid black; */
+  width: 90%;
+}
+.todoFrequent{
+  background-color: skyblue;
+
+}
+.todowordpage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.topWords{
+  width: 500px;
+  font-size: 20px;
+}
+#wordtable{
   border: 1px solid black;
   width: 90%;
+  border-collapse: collapse;
+  background-color: white;
+}
+#rank_index{
+  width: 200px;
+  text-align: center;
+}
+#rank_words{
+  font-weight: bold;
+
+  width: 200px;
+  text-align: center;
+  
+}
+#rank_count{
+
+  width: 200px;
+  text-align: center;
+}
+#topwordsP{
+
+  font-weight: bold;
+  font-size: 30px;
+}
+th{
+  border: 1px solid black;
+  color: black;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+}
+td{
+  border: 1px solid black;
+
 }
 #analP{
   font-weight: bold;

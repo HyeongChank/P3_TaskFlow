@@ -378,7 +378,7 @@ const RoutePage1 = () => {
             </div>
             <div className='calendar_container'>
                 <p>Calendar</p>
-                <Calendar onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
+                <Calendar className="calendarsize" onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
 
             </div>    
             <div className='dvlist'>

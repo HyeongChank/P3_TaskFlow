@@ -159,30 +159,30 @@ const DA = () =>{
                 <div className='datextArea'>
                     <button className='getdataBt' onClick={getdata}>시작 버튼</button>
                     {visible && (<div>
-                        <p id='analP'><span>기    간 : </span>
+                        <p id='analP'><span>- 기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : </span>
                         {startdate} ~ {lastdate}</p>
                     </div>)}
                 {Object.keys(counttodo).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>I    d: {key}</p>
-                        <p id='analP'>Count of Todo(개) : {counttodo[key]}</p>
+                        <p id='analP'>- I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d : {key}</p>
+                        <p id='analP'>- Count of Todo(개) : {counttodo[key]}</p>
                     </div>
                 ))}
                 {Object.keys(countsuccess).map((key) =>(
                     <div key={key}>
-                        <p id='analP'>Count of Success(개) : {countsuccess[key]}</p>
+                        <p id='analP'>- Count of Success(개) : {countsuccess[key]}</p>
                     </div>
                 ))}
                     {/* <div>{totalTodoCount}</div>
                     <div>{totalSuccessCount}</div> */}
                     {visible && (<div>
-                        <p id='analP'><span>일정 달성률 : </span>{countRatio}%</p>
+                        <p id='analP'><span>- 일정 달성률 : </span>{countRatio}%</p>
                     </div>)}
                 </div>
                 <div className='todoChart'>
                     <TodoChart datelist={datelist} countbydate={todolist} successbydate={successlist}/>
                 </div>
-                <div>
+                <div className='todoFrequent'>
                     <TodoWordAnal wordanal={wordanal}/>
                 </div>
             </div>

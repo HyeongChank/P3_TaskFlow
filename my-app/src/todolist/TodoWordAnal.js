@@ -19,9 +19,8 @@ const TodoWordAnal = ({wordanal}) =>{
                 throw new Error('getsuccess error');
             }
             const result = await response.json();
-            console.log('get', result);
             setGetdata(result)
- 
+            console.log('get', result); 
         } catch(error){
             // console.error(error);
         }
@@ -31,7 +30,8 @@ const TodoWordAnal = ({wordanal}) =>{
     return(
         <div>
             <button onClick={todowordanal}>버튼</button>
-            {getdata}
+            {getdata && getdata.map((i)=>
+            <div>{i}</div>)}
         </div>
     )
 }

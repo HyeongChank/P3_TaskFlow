@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
-=======
-
->>>>>>> ed62e137a5d78684b5fc7024f616bbdf149b9248
 import BClock from "./BClock";
 import BLongin from "./BLogin";
 import Backdisplay from "./Backdisplay";

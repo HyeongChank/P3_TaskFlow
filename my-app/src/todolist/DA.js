@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
+import TodoWordAnal from './TodoWordAnal';
 
 
 
@@ -26,6 +27,7 @@ const DA = () =>{
     const location = useLocation();
     const value = location.state.value;
     const mid = location.state.mid;
+    const [wordanal, setWordanal] = useState();
 
     console.log(value);
     console.log(mid);
@@ -38,6 +40,7 @@ const DA = () =>{
     const getdata = async(event) =>{
         event.preventDefault();
         setVisible(true);
+
         try{
             const response = await fetch(`http://localhost:${localhost}/api/processDA`, {
                 method: "POST",
@@ -55,11 +58,19 @@ const DA = () =>{
             const result = await response.json();
             // console.log(result)
             setGettododate(result);
+
         } catch(error){
             // console.error(error);
         }
     }
     useEffect(()=>{
+        if(gettododata){
+            const todotitle = gettododata.map((i)=>i.todo)
+            const todocontent = gettododata.map((i)=>i.content)
+
+        setWordanal([todotitle, todocontent])
+        console.log('wordanal',wordanal)
+        };
         if(gettododata){
             const successcountBydate = gettododata.reduce((acc, item)=>{
                 if(item.success ==='success'){
@@ -170,6 +181,9 @@ const DA = () =>{
                 </div>
                 <div className='todoChart'>
                     <TodoChart datelist={datelist} countbydate={todolist} successbydate={successlist}/>
+                </div>
+                <div>
+                    <TodoWordAnal wordanal={wordanal}/>
                 </div>
             </div>
         </div>

@@ -30,6 +30,7 @@ const TodoWordAnal = ({wordanal}) =>{
             <button className='Bt_anal' onClick={todowordanal}>시작버튼</button>
             <div className="todowordpage">
             <p id="topwordsP">출현 빈도 높은 Words Top 10</p>
+            <p id="describeDA">등록한 일정 제목과 내용의 Word를 카운팅하고, 가장 많이 나온 Top 10을 확인할 수 있습니다.</p>
             {getdata && 
                 <table id="wordtable">
                     <thead>

@@ -33,7 +33,7 @@ const SenAnal = ({sentianal}) =>{
             <button className='Bt_anal' onClick={todosentianal}>시작버튼</button>
             <div className="todowordpage">
                 <p id="topwordsP">일자별 작성 Todolist 감정분석 결과</p>
-                <p>감정분석이란, 텍스트에 나타난 긍정적 혹은 부정적 감정을 분석하는 방법을 말합니다.<br/>0을 기준으로 -1에 가까울수록 부정(negative)을, 1에 가까울수록 긍정(positive)를 의미합니다.</p>
+                <p id="describeDA">감정분석이란, 텍스트에 나타난 긍정적 혹은 부정적 감정을 분석하는 방법을 말합니다.<br/>0은 중립을 의미하며 0을 기준으로 -1에 가까울수록 부정(negative)을, 1에 가까울수록 긍정(positive)를 의미합니다.</p>
                 <div className="loading">
                     {isLoading ? <ClipLoader size={100} color={'#123abc'} loading={isLoading} /> : null}
                 </div>

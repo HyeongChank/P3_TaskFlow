@@ -3,7 +3,7 @@ import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
 import TodoWordAnal from './TodoWordAnal';
 import SenAnal from './SenAnal';
-import { ClipLoader } from 'react-spinners'
+
 
 
 const DA = () =>{
@@ -29,7 +29,7 @@ const DA = () =>{
     const mid = location.state.mid;
     const [wordanal, setWordanal] = useState();
     const [sentianal, setSentianal] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+
     console.log(value);
     console.log(mid);
     const gotodoPage = () =>{
@@ -167,6 +167,7 @@ const DA = () =>{
                 <div className='datextArea'>
                     <button className='Bt_anal' onClick={getdata}>시작 버튼</button>
                     <p id="topwordsP">일자별 Todolist 및 달성 현황차트</p>
+                    <p id="describeDA">일자별 Todolist 작성 개수와 달성 개수를 차트로 볼 수 있습니다. 또한, 달성률을 확인할 수 있습니다.</p>
                     {visible && (<div>
                         <p id='analP'><span>- 기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : </span>
                         {startdate} ~ {lastdate}</p>

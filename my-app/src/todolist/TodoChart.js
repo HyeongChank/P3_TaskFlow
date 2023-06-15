@@ -17,17 +17,19 @@ const TodoChart = ({datelist, countbydate, successbydate}) =>{
             data:{
                 labels: xValues,
                 datasets:[{
+                    label : 'Count by date',
                     fill:false,
                     tension:0,
-                    backgroundColor: 'rgba(0,0,255,1.0)',
-                    borderColor: 'rgba(0,0,255,0.1)',
+                    backgroundColor: 'rgba(0,0,0,1.0)',
+                    borderColor: 'rgba(0,0,0,1)',
                     data: yValues,
  
                 },{
+                    label : 'Success by date',
                     fill:false,
                     tension:0,
-                    backgroundColor: 'rgba(116, 79, 168, 0.75)',
-                    borderColor: 'rgba(255,0,0,0.1)',
+                    backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                    borderColor: 'rgba(255,0,0,1)',
                     data: zValues,
                     pointRadius: 2  
                 }]

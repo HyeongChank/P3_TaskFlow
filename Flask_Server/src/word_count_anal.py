@@ -19,33 +19,32 @@ def do_counting(wordData):
     print('top_words',top_words)
     return top_words
 
-## 감성분석
-def do_sensingAnal(wordData):
-    wordtitle = wordData['wordanal'][0]
-    wordcontent = wordData['wordanal'][1]
-    word_total = wordtitle + wordcontent
-    word_text = ''.join(word_total)
-    print('word_text', word_text)
+# ## 감성분석
+# def do_sensingAnal(wordData):
+#     wordtitle = wordData['wordanal'][0]
+#     wordcontent = wordData['wordanal'][1]
+#     word_total = wordtitle + wordcontent
+#     word_text = ''.join(word_total)
+#     print('word_text', word_text)
 
-    # 한글 -> 영어 Translator 객체 생성
-    translator = Translator()
-    ## NLTK 의 Vader 사용
-    sia = SentimentIntensityAnalyzer()
-    # 감성 점수 계산
-    # 점수 출력
-    for sentence in word_total:
-        translated = translator.translate(sentence, src='ko', dest='en')
-        print(translated)
-        print(translated.text)
-        sentiment_scores = sia.polarity_scores(sentence)
-        for key, score in sentiment_scores.items():
-            print(f'{key}: {score}, ', end='')
-            print()
-        print('\n')
+#     # 한글 -> 영어 Translator 객체 생성
+#     translator = Translator()
+#     ## NLTK 의 Vader 사용
+#     sia = SentimentIntensityAnalyzer()
+#     # 감성 점수 계산
+#     # 점수 출력
+#     for sentence in word_total:
+#         translated = translator.translate(sentence, src='ko', dest='en')
+#         print(translated)
+#         print(translated.text)
+#         sentiment_scores = sia.polarity_scores(sentence)
+#         for key, score in sentiment_scores.items():
+#             print(f'{key}: {score}, ', end='')
+#             print()
+#         print('\n')
     
     
 if __name__=='__main__':
     wordData = {'wordanal': [['밥먹기 좋아하고 운동하기 좋아하고 기분이 Good', 'bad', '학점은행제', 'good'], 
                 ['토스', '찾기', '왜', 'good','좋음']]}
     do_counting(wordData)
-    do_sensingAnal(wordData)

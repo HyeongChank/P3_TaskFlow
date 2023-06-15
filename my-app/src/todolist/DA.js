@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
 import TodoWordAnal from './TodoWordAnal';
-import SentimentAnal from './SentimentAnal';
+import SenAnal from './SenAnal';
 
 
 
@@ -28,6 +28,7 @@ const DA = () =>{
     const value = location.state.value;
     const mid = location.state.mid;
     const [wordanal, setWordanal] = useState();
+    const [sentianal, setSentianal] = useState();
 
     console.log(value);
     console.log(mid);
@@ -67,8 +68,11 @@ const DA = () =>{
         if(gettododata){
             const todotitle = gettododata.map((i)=>i.todo)
             const todocontent = gettododata.map((i)=>i.content)
-
+            const todocdate = gettododata.map((i)=>i.cdate)
+            let todocombined = todotitle.map((item, index) => item + ' ' + todocontent[index])
         setWordanal([todotitle, todocontent])
+        
+        setSentianal({todocdate, todocombined})
         console.log('wordanal',wordanal)
         };
         // 날짜별 달성 일정 개수
@@ -147,7 +151,7 @@ const DA = () =>{
     console.log('successbydate', successbydate)
     console.log('length', Object.keys(successbydate).length)
     console.log('countBydate', countbydate)
-
+    console.log('sentianal', sentianal)
     return(
         <div>
             <div>
@@ -161,7 +165,8 @@ const DA = () =>{
             
             <div className='daDisplay'>
                 <div className='datextArea'>
-                    <button className='getdataBt' onClick={getdata}>시작 버튼</button>
+                    <button className='Bt_anal' onClick={getdata}>시작 버튼</button>
+                    <p id="topwordsP">일자별 Todolist 및 달성 현황차트</p>
                     {visible && (<div>
                         <p id='analP'><span>- 기&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간 : </span>
                         {startdate} ~ {lastdate}</p>
@@ -189,8 +194,8 @@ const DA = () =>{
                 <div className='todoFrequent'>
                     <TodoWordAnal wordanal={wordanal}/>
                 </div>
-                <div>
-                    <SentimentAnal wordanal={wordanal}/>
+                <div className='todoFrequent'>
+                    <SenAnal sentianal={sentianal}/>
                 </div>
 
             </div>

@@ -10,47 +10,7 @@ import Enrollmember from "./Enrollmember";
 // props를 main페이지로부터 받음
 const RouteHome = (props) =>{
 
-<<<<<<< HEAD
-    // const loginbasic = async(e) =>{
-    //     e.preventDefault();
-    //     const data = {
-    //         id: e.target.id.value,
-    //         password: e.target.password.value,
-    //       };
-    //     try{
-    //         const response = await fetch('/api/login', {
-    //             method:'POST',
-    //             headers:{
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(data),
-    //             })
-            
-
-    //         if(!response.ok){
-    //             throw new Error('login error');
-    //         }
-    //         const result = await response.text();
-    //         if(result === '로그인 성공'){
-    //             console.log('success');
-    //             props.onSuccess();
-    //         } else{
-    //             console.log('failure');
-    //         }
-    //     } catch(error){
-    //         console.error(error);
-    //     }
-
-    // };    
- 
-    const navigate = useNavigate();
-
-    function buttest() {
-      navigate('/Ttest');
-    } 
-=======
     
->>>>>>> 88d701557e03b510056b5081391e7644dd525844
     return(
         
         <div className='Tmain'>
@@ -60,13 +20,6 @@ const RouteHome = (props) =>{
             <h1>Todolist</h1>
             <div className="loginclock"><BClock/></div>
             <div className="logintotal">
-<<<<<<< HEAD
-                {/* <div className='loginArea'> */}
-                    <div className="logint"><button onClick={buttest}>test</button></div>
-
-        
-=======
->>>>>>> 88d701557e03b510056b5081391e7644dd525844
                     <div className="loginleft"><BLongin/></div>
                     <div className="loginright"><Enrollmember/></div>
             </div>

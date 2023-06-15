@@ -27,7 +27,7 @@ const TodoWordAnal = ({wordanal}) =>{
     const nums = [1,2,3,4,5,6,7,8,9,10]
     return(
         <div>
-            <button className='getdataBt' onClick={todowordanal}>시작버튼</button>
+            <button className='Bt_anal' onClick={todowordanal}>시작버튼</button>
             <div className="todowordpage">
             <p id="topwordsP">출현 빈도 높은 Words Top 10</p>
             {getdata && 

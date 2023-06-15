@@ -420,6 +420,43 @@ h1{
 .Bt:focus {
   outline: none;
 }
+.Bt_anal {
+  background-image: linear-gradient(to right, #7b6df8, #0432fd, #5901fd, #8E37D7);
+  box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+  }
+.Bt_anal {
+  width: 150px;
+  height: 30px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 300;
+  color: #fff;
+  cursor: pointer;
+  text-align:center;
+  border: none;
+  background-size: 300% 100%;
+
+  border-radius: 10px;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.Bt_anal:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.Bt_anal:focus {
+  outline: none;
+}
 
 .dapage{
   display: flex;
@@ -433,21 +470,21 @@ h1{
   font-weight: bold;
   font-size: 15px;
   margin-right: 5px;
-  background-color: rgba(0, 0, 0, 0.425);
+  background-color: rgba(24, 137, 202, 0.829);
   color: white;
   border: none;
   border-radius: 3px;
   box-shadow: 0px 0px 1px 1px rgb(0,0,0);
 }
 .getdataBt:hover{
-    background-color: black;
+    background-color: rgb(154, 214, 15);
     color: white;
     transition: 0.7s;
 }
 .daDisplay{
-  background-color: skyblue;
+
   width: 800px;
-  height: 1100px;
+  height: 1800px;
   border: 1px solid black;
 
 }
@@ -468,9 +505,13 @@ h1{
   width: 90%;
 }
 .todoFrequent{
-  background-color: skyblue;
+  /* background-color: violet;
+  border: 1px solid black; */
+  margin-bottom: 30px;
+  margin-top: 10px;
 
 }
+
 .todowordpage{
   display: flex;
   flex-direction: column;
@@ -482,6 +523,7 @@ h1{
   font-size: 20px;
 }
 #wordtable{
+  text-align: center;
   border: 1px solid black;
   width: 90%;
   border-collapse: collapse;
@@ -504,7 +546,7 @@ h1{
   text-align: center;
 }
 #topwordsP{
-
+  text-align: center;
   font-weight: bold;
   font-size: 30px;
 }
@@ -512,7 +554,7 @@ th{
   border: 1px solid black;
   color: black;
   font-weight: bold;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
 }
 td{

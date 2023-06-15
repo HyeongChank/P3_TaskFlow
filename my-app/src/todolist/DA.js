@@ -3,7 +3,7 @@ import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
 import TodoWordAnal from './TodoWordAnal';
 import SenAnal from './SenAnal';
-
+import { ClipLoader } from 'react-spinners'
 
 
 const DA = () =>{
@@ -29,7 +29,7 @@ const DA = () =>{
     const mid = location.state.mid;
     const [wordanal, setWordanal] = useState();
     const [sentianal, setSentianal] = useState();
-
+    const [isLoading, setIsLoading] = useState(false);
     console.log(value);
     console.log(mid);
     const gotodoPage = () =>{

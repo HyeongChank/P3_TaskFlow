@@ -1,28 +1,29 @@
 import { useState } from "react";
-
+import { ClipLoader } from 'react-spinners'
 const SenAnal = ({sentianal}) =>{
     const [getsentidata, setGetsentidata] = useState();
-
+    const [isLoading, setIsLoading] = useState(false);
     const todosentianal=async()=>{
         try{
-                const response = await fetch('http://127.0.0.1:5000/api/sentimentAnal', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        sentianal:sentianal
-                    }),
-                });
-                if(!response.ok){
-                    throw new Error('error');
-                }
-                const result = await response.json();
-                for(const [key, value] of Object.entries(result)){
-                    console.log(`key: ${key}, value: ${value}`);
-                }
-                setGetsentidata(result)
- 
+            setIsLoading(true);
+            const response = await fetch('http://127.0.0.1:5000/api/sentimentAnal', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    sentianal:sentianal
+                }),
+            });
+            if(!response.ok){
+                throw new Error('error');
+            }
+            const result = await response.json();
+            for(const [key, value] of Object.entries(result)){
+                console.log(`key: ${key}, value: ${value}`);
+            }
+            setGetsentidata(result)
+            setIsLoading(false);
             } catch(error){
                 // console.error(error);
             }
@@ -33,6 +34,9 @@ const SenAnal = ({sentianal}) =>{
             <div className="todowordpage">
                 <p id="topwordsP">일자별 작성 Todolist 감정분석 결과</p>
                 <p>감정분석이란, 텍스트에 나타난 긍정적 혹은 부정적 감정을 분석하는 방법을 말합니다.<br/>0을 기준으로 -1에 가까울수록 부정(negative)을, 1에 가까울수록 긍정(positive)를 의미합니다.</p>
+                <div className="loading">
+                    {isLoading ? <ClipLoader size={100} color={'#123abc'} loading={isLoading} /> : null}
+                </div>
                 {getsentidata && 
                     <table id="wordtable">
                         <thead>
@@ -53,6 +57,7 @@ const SenAnal = ({sentianal}) =>{
                     </table>
                 }
             </div>
+           
         </div>
     )
 }

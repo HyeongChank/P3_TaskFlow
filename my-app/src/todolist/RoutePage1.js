@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
@@ -15,6 +15,12 @@ const RoutePage1 = () => {
     const [data, setData] = useState([]);
     const [todo, setTodo] = useState("");
     const [content, setContent] = useState("");
+    const [selectedFile, setSelectedFile] = useState();
+    const [imageUrl, setImageUrl] = useState(null);
+    const [imageUrl2, setImageUrl2] = useState(null);
+    const [number1] = useState(1);
+    const [number2] = useState(2);
+    const [successtext, setSuccesstext] = useState({});
 
     // const backgroundImageUrl = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg';
     // const appStyle = {
@@ -23,30 +29,30 @@ const RoutePage1 = () => {
     //   backgroundPosition: 'center',
     //   minHeight: '100vh',
     // }
-
+    const localhost = 8080;
 
     const onChange = (newValue) =>{
         setValue(newValue);
     };
-
     const renderSchedules = () =>{
         const filterData = data.filter((item) => item.mid ===mid);
+
         return filterData
         .map((item) => {
+            console.log(item)
             const formattedDate=moment(item.cdate).format("YYYY-MM-DD")
             if(formattedDate===moment(value).format("YYYY-MM-DD")){
                 return(
                     <div key={item.id}>
                         <div className='btGroup'>
                             <h3 className='dbtitle'>TodoTitle : {item.todo}</h3>
-
+                            {/* onclick = {() => 함수} 를 사용하는 이유 : 버튼을 클릭했을 때, item을 인자로 함수를 호출하기 위해서
+                            onclick = {함수} 로 사용하면 페이지가 렌더링 될 때 즉시 실행되기 때문에 */}
                             <button className='Bt' onClick={() => updatetodo(item)}>수정</button>                            
                             <button className='Bt' onClick={() => deletetodo(item)}>삭제</button>
-                            <button className='Bt' onClick={() => successtodo(item)}>달성</button>
-
+                            <button className='Bt' onClick={() => successtodo(item)}>{successtext[item.id] || '달성'}</button>
                         </div>
                         <p className='dbcontent'>TodoContent : {item.content}</p>
-                        {/* <p className='dbsuccess'>{item.success}</p> */}
                     </div>
                 );
             }
@@ -56,7 +62,7 @@ const RoutePage1 = () => {
     const deletetodo = async(item) =>{
         // console.log("delete", item)       
         try{
-            const response = await fetch("http://localhost:8080/api/delete", {
+            const response = await fetch(`http://localhost:${localhost}/api/delete`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -77,7 +83,7 @@ const RoutePage1 = () => {
         // console.log("updatedata", data)
 
         try{
-            const response = await fetch("http://localhost:8080/api/update", {
+            const response = await fetch(`http://localhost:${localhost}/api/update`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -96,9 +102,9 @@ const RoutePage1 = () => {
         }
     }
     const successtodo = async(item) =>{
-        // console.log(item)
+        console.log('successItem', item)
         try{
-            const response = await fetch("http://localhost:8080/api/success", {
+            const response = await fetch(`http://localhost:${localhost}/api/success`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -112,11 +118,18 @@ const RoutePage1 = () => {
                 throw new Error('getsuccess error');
             }
             const result = await response.text();
+            console.log(result);
             if(result === 'success'){
                 // console.log('success');
                 successEvent()
-            } else{
-                // console.log('Ntime');
+                // item 중 id에 해당하는 item의 text만 변경, 나머지 id의 text는 기존 유지
+                setSuccesstext(prevState =>({
+                    ...prevState,
+                    [item.id]: '달성완료'
+                }));
+                console.log(successtext)
+            } else if(result==='Ntime'){
+                alert("이미 달성한 일정입니다.")
             }
         } catch(error){
             // console.error(error);
@@ -186,7 +199,7 @@ const RoutePage1 = () => {
         event.preventDefault();
         try {
             // 서버와 연결하고 요청을 보내고, 응답을 받아서 response에 저장
-          const response = await fetch("http://localhost:8080/api/insertone", {
+          const response = await fetch(`http://localhost:${localhost}/api/insertone`, {
             // 서버에 전송할 데이터 형식 지정
             method: "POST",
             headers: {
@@ -200,9 +213,16 @@ const RoutePage1 = () => {
                 mid: mid,
               }),
           });
-          // 애초에 받아온 정보의 json형태 
-        //   const data = await response.json();
-        //   console.log("insert", data);
+            if(!response.ok){
+                throw new Error('getsuccess error');
+            }
+            const result = await response.text();
+            if(result === 'success'){
+                console.log('success');
+                alert("일정 등록 완료")
+            } else{
+                console.log('error');
+            }
 
         } catch (error) {
         //   console.error(error);
@@ -219,7 +239,7 @@ const RoutePage1 = () => {
     // setdata 부분
     const handleClick = async (value) => {
         try {
-          const response = await fetch("http://localhost:8080/api/model");
+          const response = await fetch(`http://localhost:${localhost}/api/model`);
           const data = await response.json();
         //   console.log('ddddd', data)
           setData(data)
@@ -231,10 +251,125 @@ const RoutePage1 = () => {
     const goPage1 = () =>{
         navigate('/');
     }
+    // 이미지 db 저장 부분
+    // 클라이언트에 저장되어 있는 이미지의 절대경로를 같이 서버로 보내는 건 불가능
+    // 웹에서 사용자의 파일 시스템의 직접적인 접근을 허용하지 않음
+    const fileSelectedHandler = event =>{
+        setSelectedFile(event.target.files[0]);
+    };
+    const fileUploadHandler = async(event) =>{
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('num', number1);
+        formData.append('imageLoad', JSON.stringify({
+            cdate: moment(value).format("YYYY-MM-DD"),
+            mid: mid
+        }));
 
+        try{
+            const response = await fetch(`http://localhost:${localhost}/api/insertimage`, {
+                method: "POST",
+                body:formData,
+                // headers:{
+                // }
+            });
+            if(!response.ok){
+                throw new Error('error')
+            }
+            else{
+                const data = await response.text();
+                console.log(data);
+            }
+        }
+        catch (error){
+            console.log('error' + error)
+        }
+    }
+    const fileSelectedHandler2 = event =>{
+        setSelectedFile(event.target.files[0]);
+    };
+    const fileUploadHandler2 = async(event) =>{
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('num', number2);
+        formData.append('imageLoad', JSON.stringify({
+            cdate: moment(value).format("YYYY-MM-DD"),
+            mid: mid
+        }));
 
+        try{
+            const response = await fetch(`http://localhost:${localhost}/api/insertimage`, {
+                method: "POST",
+                body:formData,
+                // headers:{
+                // }
+            });
+            if(!response.ok){
+                throw new Error('error')
+            }
+            else{
+                const data = await response.text();
+                console.log(data);
+            }
+        }
+        catch (error){
+            console.log('error' + error)
+        }
+    }
+
+    const getImage1 = async() =>{
+    try{
+        const response = await fetch(`http://localhost:${localhost}/api/getImage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                mid: mid,
+                cdate: moment(value).format("YYYY-MM-DD"),
+                num: 1
+
+            }),
+        });
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        setImageUrl(url);
+    }
+    catch (error){
+        console.log('error' + error)
+    }};
+
+    const getImage2 = async() =>{
+        try{
+            const response = await fetch(`http://localhost:${localhost}/api/getImage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    mid: mid,
+                    cdate: moment(value).format("YYYY-MM-DD"),
+                    num: 2
+    
+                }),
+            });
+            const blob = await response.blob();
+            const url2 = URL.createObjectURL(blob);
+            setImageUrl2(url2);
+        }
+        catch (error){
+            console.log('error')
+        }};
+
+    const goda = () =>{
+        navigate('/da', {state:{value: moment(value).format("YYYY-MM-DD"),
+                                mid:mid}});
+    }
+    
     return(
-        // <div className='Tmain' style={appStyle}>
+       
         <div className='Tmain'>
         <div className='secondmain'>
             <span className="mainT">Todolist</span>
@@ -243,12 +378,13 @@ const RoutePage1 = () => {
             </div>
             <div className='calendar_container'>
                 <p>Calendar</p>
-                <Calendar onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
+                <Calendar className="calendarsize" onChange={onChange} value={value} onClickDay={(value) => handleClick(moment(value).format("YYYY-MM-DD"))}/>
 
             </div>    
             <div className='dvlist'>
                 <div className="dDate">
                     {moment(value).format("YYYY년 MM월 DD일")} 일정
+                    <button className="dabt" onClick={goda}>일정 분석</button>
                 </div>
                 <div className='dschedule'>
                     {renderSchedules()}
@@ -267,8 +403,27 @@ const RoutePage1 = () => {
                     </label>
                         <button className='Bt' type="submit">등록</button>
                 </form>
-
-
+                <div>
+                    <p>이미지 저장</p>
+                    <form encType="multipart/form-data" onSubmit={fileUploadHandler}>
+                        <span>{number1}</span>
+                        <input type="file" name="file" onChange={fileSelectedHandler} />
+                        <input type="submit" value="Upload" />
+                    </form>
+                    <div className="imagespot">
+                        <button onClick={getImage1}>Get Image</button>
+                        {imageUrl && <img src={imageUrl} alt="From server" />}
+                    </div>
+                    <form encType="multipart/form-data" onSubmit={fileUploadHandler2}>
+                        <span>{number2}</span>
+                        <input type="file" name="file" onChange={fileSelectedHandler2} />
+                        <input type="submit" value="Upload" />
+                    </form>
+                    <div className="imagespot">
+                        <button onClick={getImage2}>Get Image</button>
+                        {imageUrl2 && <img src={imageUrl2} alt="From server" />}
+                    </div>
+                </div>
                 </div>
 
         </div>

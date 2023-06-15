@@ -6,9 +6,11 @@ import Enrollmember from "./Enrollmember";
 
 
 
-const RouteHome = (props) =>{
-    // const navigate = useNavigate();
 
+// props를 main페이지로부터 받음
+const RouteHome = (props) =>{
+
+<<<<<<< HEAD
     // const loginbasic = async(e) =>{
     //     e.preventDefault();
     //     const data = {
@@ -46,22 +48,27 @@ const RouteHome = (props) =>{
     function buttest() {
       navigate('/Ttest');
     } 
+=======
+    
+>>>>>>> 88d701557e03b510056b5081391e7644dd525844
     return(
         
         <div className='Tmain'>
-        
+
         <div className='secondmain'>
             <h2>일정관리 웹 서비스</h2>
             <h1>Todolist</h1>
             <div className="loginclock"><BClock/></div>
             <div className="logintotal">
+<<<<<<< HEAD
                 {/* <div className='loginArea'> */}
                     <div className="logint"><button onClick={buttest}>test</button></div>
 
         
+=======
+>>>>>>> 88d701557e03b510056b5081391e7644dd525844
                     <div className="loginleft"><BLongin/></div>
                     <div className="loginright"><Enrollmember/></div>
-                {/* </div> */}
             </div>
         </div>
         <Backdisplay/>

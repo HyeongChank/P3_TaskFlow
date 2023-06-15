@@ -6,14 +6,14 @@ import "regenerator-runtime/runtime";
 
 const BLongin = () =>{
     const navigate = useNavigate();
-
+    const localhost = 8080;
     const [memberid, setMemberid] = useState();
     const [memberpw, setMemberpw] = useState();    
     const logintool = async(event) =>{
         event.preventDefault();
 
         try{
-            const response = await fetch('http://localhost:8080/api/login', {
+            const response = await fetch(`http://localhost:${localhost}/api/login`, {
                 method:'POST',
                 headers:{
                     'Content-Type': 'application/json',

@@ -1,6 +1,10 @@
 import pandas as pd
 from collections import Counter
-def do_preprocessing(wordData):
+from nltk.sentiment import SentimentIntensityAnalyzer
+from googletrans import Translator
+
+## 단어빈도 계산
+def do_counting(wordData):
     words = Counter()
     wordtitle = wordData['wordanal'][0]
     wordcontent = wordData['wordanal'][1]
@@ -14,9 +18,34 @@ def do_preprocessing(wordData):
     top_words = words.most_common(10)
     print('top_words',top_words)
     return top_words
+
+## 감성분석
+def do_sensingAnal(wordData):
+    wordtitle = wordData['wordanal'][0]
+    wordcontent = wordData['wordanal'][1]
+    word_total = wordtitle + wordcontent
+    word_text = ''.join(word_total)
+    print('word_text', word_text)
+
+    # 한글 -> 영어 Translator 객체 생성
+    translator = Translator()
+    ## NLTK 의 Vader 사용
+    sia = SentimentIntensityAnalyzer()
+    # 감성 점수 계산
+    # 점수 출력
+    for sentence in word_total:
+        translated = translator.translate(sentence, src='ko', dest='en')
+        print(translated)
+        print(translated.text)
+        sentiment_scores = sia.polarity_scores(sentence)
+        for key, score in sentiment_scores.items():
+            print(f'{key}: {score}, ', end='')
+            print()
+        print('\n')
+    
     
 if __name__=='__main__':
-    # wordData = {'wordanal': ['123', '123232', '학점은행제', 'test1', 'test2', 'test3', 'todolist 달성 중복 제거', 'firebase build 하기', '토스', 'ncs 책, 동향 찾아보기', 'testtt', 'testtt22', 'testtt2233', '123', '1234', '1234', '123', '12323223']}
-    wordData = {'wordanal': [['123', '123232', '학점은행제', 'test1', 'test2', 'test3', 'todolist 달성 중복 제거', 'firebase build 하기', '토스', 'ncs 책, 동향 찾아보기', 'testtt', 'testtt22', 'testtt2233', '123', '1234', '1234', '123', '12323223'], ['123', '123', '123', 'test1', 'test2', 'test3', '코드 수정', 'build', 
-'토스', '찾기', 'tt', 'tt', 'tt', '123', '1234', '1234', '123', '123']]}
-    do_preprocessing(wordData)
+    wordData = {'wordanal': [['밥먹기 좋아하고 운동하기 좋아하고 기분이 Good', 'bad', '학점은행제', 'good'], 
+                ['토스', '찾기', '왜', 'good','좋음']]}
+    do_counting(wordData)
+    do_sensingAnal(wordData)

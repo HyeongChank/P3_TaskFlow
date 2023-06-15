@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
 import TodoWordAnal from './TodoWordAnal';
+import SentimentAnal from './SentimentAnal';
 
 
 
@@ -20,7 +21,6 @@ const DA = () =>{
 
     const todolist = Object.values(countbydate);
     const successlist = Object.values(successbydate);
-
     const datelist = Object.keys(countbydate);
     const startdate = datelist[0];
     const lastdate = datelist[datelist.length-1]
@@ -71,6 +71,7 @@ const DA = () =>{
         setWordanal([todotitle, todocontent])
         console.log('wordanal',wordanal)
         };
+        // 날짜별 달성 일정 개수
         if(gettododata){
             const successcountBydate = gettododata.reduce((acc, item)=>{
                 if(item.success ==='success'){
@@ -83,6 +84,7 @@ const DA = () =>{
             }, {});
         setSuccessbydate(successcountBydate)
         }
+        // 날짜별 일정 개수
         if(gettododata){
             const todocountBydate = gettododata.reduce((acc, item)=>{
                 
@@ -92,9 +94,10 @@ const DA = () =>{
             }, {});
         setCountbydate(todocountBydate)
         }
+        // 총 달성 개수
         if(gettododata){
             const successCount = gettododata.reduce((counts, item) =>{
-                console.log("item", item);
+                // console.log("item", item);
                 if(item.success ==='success'){
                     // 해당 날짜에 없는 경우 처음 1 설정
                     if(!counts[item.mid]){
@@ -111,6 +114,7 @@ const DA = () =>{
             setTotalSuccessCount(totalSuccessCount);
             setCountsuccess(successCount);
         }
+        // 총 일정 개수
         if(gettododata){
             const todoCount = gettododata.reduce((counts, item) =>{
                 // console.log("item", item);
@@ -121,13 +125,13 @@ const DA = () =>{
                 else{
                     counts[item.mid] ++;
                 }
-                
                 return counts
             }, {});
             const totalCount = Object.values(todoCount).reduce((a,b) => a+b,0)
 
             setTotalTodoCount(totalCount)
             setCounttodo(todoCount);
+            // 총 달성개수/일정개수 비율
             if(totalCount !==0){
                 // 소수점 2자리까지 반올림하는 방법
                 const ratio = Math.round((totalSuccessCount / totalTodoCount *100)*100)/100;
@@ -185,6 +189,10 @@ const DA = () =>{
                 <div className='todoFrequent'>
                     <TodoWordAnal wordanal={wordanal}/>
                 </div>
+                <div>
+                    <SentimentAnal wordanal={wordanal}/>
+                </div>
+
             </div>
         </div>
         </div>

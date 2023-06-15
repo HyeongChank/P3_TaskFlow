@@ -8,7 +8,7 @@ cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 def todo_word_anal():
     wordData = request.get_json()
     print(wordData)
-    top_words = word_anal.do_preprocessing(wordData)
+    top_words = word_anal.do_counting(wordData)
     # print(wordData)
     return top_words
 

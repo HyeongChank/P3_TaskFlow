@@ -20,8 +20,8 @@ const TodoChart = ({datelist, countbydate, successbydate}) =>{
                     label : 'Count by date',
                     fill:false,
                     tension:0,
-                    backgroundColor: 'rgba(0,0,0,1.0)',
-                    borderColor: 'rgba(0,0,0,1)',
+                    backgroundColor: 'rgba(0,0,0,1.0)', // 점색
+                    borderColor: 'rgba(0,0,0,1)', // 선색
                     data: yValues,
  
                 },{

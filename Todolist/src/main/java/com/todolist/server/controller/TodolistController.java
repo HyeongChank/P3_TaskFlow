@@ -34,8 +34,8 @@ import com.todolist.server.domain.Todolist;
 import com.todolist.server.service.TodoService;
 
 
-@CrossOrigin(origins = "https://todolist-45c52.web.app")
-//@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "https://todolist-45c52.web.app")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	

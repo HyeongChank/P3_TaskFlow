@@ -14,8 +14,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +34,7 @@ import com.todolist.server.persistence.TodolistRepository;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 
 @Service
 public class TodoService {
@@ -46,6 +50,8 @@ public class TodoService {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
+	
+	private static final Logger logger = LoggerFactory.getLogger(TodoService.class);
 	
 	public List<Todolist> gettodo() {
 
@@ -242,7 +248,16 @@ public class TodoService {
 		System.out.println(tdl);
 		// yyyy-mm-dd 타입의 string간 비교를 통한 오름차순
 		tdl.sort(Comparator.comparing(t -> LocalDate.parse(t.getCdate())));
+		// 현재는 date() 타입의 날짜와 시간이 저장되어 있어 시간순으로도 정렬하려면 아래와 같이 정렬할 수 있음
+		// Date를 LocalDateTime으로 변환하고 이를 기준으로 오름차순 정렬
+	    //tdl.sort(Comparator.comparing(t -> t.getCdate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()));
 		return tdl;
+	}
+	@Scheduled(fixedRate = 600000)
+	public void sortByDate() {
+		// 10분마다 db 안의 데이터를 정렬하고 저장하려고 했으나, 이보다 데이터를 호출할 떄 정렬하는 게 나아 10분마다 db 사이즈를 콘솔에 남기는 test용
+		List<Todolist> makeSort = tr.findAll(Sort.by(Sort.Direction.ASC, "cdate"));
+		logger.info("sort by date : " + makeSort.size());
 	}
 
 }

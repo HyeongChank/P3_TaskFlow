@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Getter
-@Setter
-@ToString
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+//@Getter
+//@Setter
+//@ToString
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Entity
 public class Todolist {
 	@Id

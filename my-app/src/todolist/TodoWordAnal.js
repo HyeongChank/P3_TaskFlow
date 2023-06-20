@@ -19,7 +19,7 @@ const TodoWordAnal = ({wordanal}) =>{
             }
             const result = await response.json();
             setGetdata(result)
-            console.log('getdata', result); 
+            // console.log('getdata', result); 
         } catch(error){
             // console.error(error);
         }

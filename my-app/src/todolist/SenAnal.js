@@ -20,7 +20,7 @@ const SenAnal = ({sentianal}) =>{
             }
             const result = await response.json();
             for(const [key, value] of Object.entries(result)){
-                console.log(`key: ${key}, value: ${value}`);
+                // console.log(`key: ${key}, value: ${value}`);
             }
             setGetsentidata(result)
             setIsLoading(false);

@@ -6,12 +6,12 @@ const TodoChart = ({datelist, countbydate, successbydate}) =>{
     const chartRef = useRef(null);
     useEffect(()=>{
     if(countbydate !== undefined){
-        console.log("pass")
+        // console.log("pass")
         const xValues = datelist;
         const yValues = countbydate;
         const zValues = successbydate;
-        console.log('xValues', xValues);
-        console.log(yValues);
+        // console.log('xValues', xValues);
+        // console.log(yValues);
         const chart = new Chart(chartRef.current,{
             type:'line',
             data:{

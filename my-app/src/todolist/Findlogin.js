@@ -29,13 +29,13 @@ const Findlogin = () =>{
         const result = await response.text();
         if(result === 'mailsuccess'){
             alert("등록된 Email 주소로 로그인 정보를 전송하였습니다. Email을 확인해 주세요.")
-            console.log(result)
-            console.log('success');
+            // console.log(result)
+            // console.log('success');
            
         }
           // 받아온 데이터를 화면에 출력하는 코드 작성
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
 
     }
@@ -64,15 +64,15 @@ const Findlogin = () =>{
     const result = await response.json();
         alert("등록된 Email 주소로 로그인 정보를 전송하였습니다. Email을 확인해 주세요.")        
         setAuthorize(result.key1);
-        console.log(result.key1);
+        // console.log(result.key1);
 
 
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }        
     }
     const getnumber = (event) =>{
-        console.log(event.target.value);
+        // console.log(event.target.value);
         setNumber(event.target.value);
 
     }
@@ -93,10 +93,10 @@ const Findlogin = () =>{
           } 
     }    
     const updateidpw = async(event) =>{
-        console.log("updateidpw");
-        console.log(memberemail);
-        console.log(memberid);
-        console.log(memberpw)
+        // console.log("updateidpw");
+        // console.log(memberemail);
+        // console.log(memberid);
+        // console.log(memberpw)
         event.preventDefault();
         try {
             const response = await fetch("http://localhost:8080/api/updateInfo", {
@@ -120,7 +120,7 @@ const Findlogin = () =>{
  
           } catch (error) {
             alert("동일한 ID가 존재합니다.")
-            console.log(error);
+            // console.log(error);
           }
       }
 

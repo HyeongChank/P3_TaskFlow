@@ -39,7 +39,7 @@ const RoutePage1 = () => {
 
         return filterData
         .map((item) => {
-            console.log(item)
+            // console.log(item)
             const formattedDate=moment(item.cdate).format("YYYY-MM-DD")
             if(formattedDate===moment(value).format("YYYY-MM-DD")){
                 return(
@@ -102,7 +102,7 @@ const RoutePage1 = () => {
         }
     }
     const successtodo = async(item) =>{
-        console.log('successItem', item)
+        // console.log('successItem', item)
         try{
             const response = await fetch(`http://localhost:${localhost}/api/success`, {
                 method: "POST",
@@ -118,7 +118,7 @@ const RoutePage1 = () => {
                 throw new Error('getsuccess error');
             }
             const result = await response.text();
-            console.log(result);
+            // console.log(result);
             if(result === 'success'){
                 // console.log('success');
                 successEvent()
@@ -127,7 +127,6 @@ const RoutePage1 = () => {
                     ...prevState,
                     [item.id]: '달성완료'
                 }));
-                console.log(successtext)
             } else if(result==='Ntime'){
                 alert("이미 달성한 일정입니다.")
             }
@@ -218,10 +217,10 @@ const RoutePage1 = () => {
             }
             const result = await response.text();
             if(result === 'success'){
-                console.log('success');
+                // console.log('success');
                 alert("일정 등록 완료")
             } else{
-                console.log('error');
+                // console.log('error');
             }
 
         } catch (error) {
@@ -279,11 +278,15 @@ const RoutePage1 = () => {
             }
             else{
                 const data = await response.text();
-                console.log(data);
+                // console.log(data);
+                if(data==='success'){
+                    alert("이미지가 등록되었습니다.")
+                }
             }
         }
         catch (error){
-            console.log('error' + error)
+            // console.log('error' + error)
+            alert("이미지 등록 실패")
         }
     }
     const fileSelectedHandler2 = event =>{
@@ -311,11 +314,11 @@ const RoutePage1 = () => {
             }
             else{
                 const data = await response.text();
-                console.log(data);
+                // console.log(data);
             }
         }
         catch (error){
-            console.log('error' + error)
+            // console.log('error' + error)
         }
     }
 
@@ -338,7 +341,7 @@ const RoutePage1 = () => {
         setImageUrl(url);
     }
     catch (error){
-        console.log('error' + error)
+        // console.log('error' + error)
     }};
 
     const getImage2 = async() =>{
@@ -360,7 +363,7 @@ const RoutePage1 = () => {
             setImageUrl2(url2);
         }
         catch (error){
-            console.log('error')
+            // console.log('error')
         }};
 
     const goda = () =>{

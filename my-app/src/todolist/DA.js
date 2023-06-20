@@ -30,8 +30,8 @@ const DA = () =>{
     const [wordanal, setWordanal] = useState();
     const [sentianal, setSentianal] = useState();
 
-    console.log(value);
-    console.log(mid);
+    // console.log(value);
+    // console.log(mid);
     const gotodoPage = () =>{
         navigate('/p', {state:{mid:mid}})
     }
@@ -73,7 +73,7 @@ const DA = () =>{
         setWordanal([todotitle, todocontent])
         
         setSentianal({todocdate, todocombined})
-        console.log('wordanal',wordanal)
+        // console.log('wordanal',wordanal)
         };
         // 날짜별 달성 일정 개수
         if(gettododata){
@@ -147,11 +147,11 @@ const DA = () =>{
         }
 
     }, [gettododata])
-    console.log(gettododata)
-    console.log('successbydate', successbydate)
-    console.log('length', Object.keys(successbydate).length)
-    console.log('countBydate', countbydate)
-    console.log('sentianal', sentianal)
+    // console.log(gettododata)
+    // console.log('successbydate', successbydate)
+    // console.log('length', Object.keys(successbydate).length)
+    // console.log('countBydate', countbydate)
+    // console.log('sentianal', sentianal)
     return(
         <div>
             <div>

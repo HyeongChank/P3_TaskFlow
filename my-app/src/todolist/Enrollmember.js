@@ -7,6 +7,8 @@ const Enrollmember = () => {
     const [memberid, setMemberid] = useState();
     const [memberpw, setMemberpw] = useState();
     const [memberemail, setMemberemail] = useState();
+    // 패스워드를 2번 입력받으려면 id, pw, email을 나눠야 함
+    // 일단 현재 유지하고 적용여부 생각해보기
 
     const enrollmembers = async(event) =>{
         event.preventDefault();

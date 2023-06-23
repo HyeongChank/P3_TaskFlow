@@ -30,57 +30,18 @@ import com.todolist.server.service.TodoService;
 @RestController
 public class TodolistController {
 	
-	@Autowired
-	TodoService ts ;
+	private final TodoService ts ;
+	
+	private TodolistController(TodoService ts) {
+		this.ts = ts;
+	}
 	
 	@GetMapping("/api/model")
 	public List<Todolist> getTodo(){
 
 		return ts.gettodo();
 	}
-//	@GetMapping("/api/insert")
-//	public List<Todolist> insertTodo(){
-//
-//		List<Todolist> todoList = new ArrayList<>();
-//		for(long i=0; i<2L; i++) {
-//			Todolist tl = new Todolist();
-//
-//			tl.setTodo("todo chech connect"+ i);
-//			tl.setSuccess("success");
-//			tl.setCdate("2023-05-02");
-//			tl.setContent("connect alright");
-//			todoList.add(tl);
-//		}
-//		return ts.insertTodo(todoList);
-//	}
-//	
-	@PostMapping("/api/insertimage")
-	public ResponseEntity<String> insertImage(
-			@RequestParam("file") MultipartFile file,
-			@RequestParam("num") int num,
-			@RequestParam("imageLoad") String imageLoadStr) throws IOException {
-		ImageLoad imageload = new ObjectMapper().readValue(imageLoadStr, ImageLoad.class);
-		System.out.println("imageLoad");
-		String cdate = imageload.getCdate();
-		String mid = imageload.getMid();
-		System.out.println(cdate);
-		System.out.println(mid);
-		System.out.println(num);
-		return ResponseEntity.ok(ts.insertimage(file, cdate, mid, num));
-	}
-	@PostMapping("/api/getImage")
-	public ResponseEntity<Resource> getimage(@RequestBody ImageLoad imageload) throws MalformedURLException{
-		System.out.println(imageload);
-		String mid = imageload.getMid();
-	    String cdate = imageload.getCdate();
-	    int num = imageload.getNum();
-	    System.out.println(mid + cdate);
 
-				
-		return ts.getimage(mid, cdate, num);
-
-	}
-	
 	@PostMapping("/api/insertone")
 	public ResponseEntity<String> insertone(@RequestBody Todolist tl) {
 		List<Todolist> todoList = new ArrayList<>();
@@ -153,5 +114,31 @@ public class TodolistController {
 		
 		return ts.getanalysis(td);
 	}
+	
+	@PostMapping("/api/insertimage")
+	public ResponseEntity<String> insertImage(
+			@RequestParam("file") MultipartFile file,
+			@RequestParam("num") int num,
+			@RequestParam("imageLoad") String imageLoadStr) throws IOException {
+		ImageLoad imageload = new ObjectMapper().readValue(imageLoadStr, ImageLoad.class);
+		System.out.println("imageLoad");
+		String cdate = imageload.getCdate();
+		String mid = imageload.getMid();
+		System.out.println(cdate);
+		System.out.println(mid);
+		System.out.println(num);
+		return ResponseEntity.ok(ts.insertimage(file, cdate, mid, num));
+	}
+	@PostMapping("/api/getImage")
+	public ResponseEntity<Resource> getimage(@RequestBody ImageLoad imageload) throws MalformedURLException{
+		System.out.println(imageload);
+		String mid = imageload.getMid();
+	    String cdate = imageload.getCdate();
+	    int num = imageload.getNum();
+	    System.out.println(mid + cdate);
+		
+		return ts.getimage(mid, cdate, num);
+	}
+	
 
 }

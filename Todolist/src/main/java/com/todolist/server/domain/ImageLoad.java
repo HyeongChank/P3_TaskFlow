@@ -1,12 +1,25 @@
 package com.todolist.server.domain;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 
 
 @Entity
+@Table(name="imageload", indexes= {
+		@Index(columnList="id"),
+		@Index(columnList="path"),
+		@Index(columnList="mid"),
+		@Index(columnList="cdate"),
+		@Index(columnList="num")
+})
+@EntityListeners(AuditingEntityListener.class)
 public class ImageLoad {
 	
 	@Id

@@ -39,19 +39,23 @@ import org.springframework.scheduling.annotation.Scheduled;
 @Service
 public class TodoService {
 	
-	@Autowired
-	private TodolistRepository tr;
 
-	@Autowired
-	private MemberRepository mr;
+	private final TodolistRepository tr;
+
+	private final MemberRepository mr;
 	
-	@Autowired
-	private ImageLoadRepository ir;
+	private final ImageLoadRepository ir;
 	
-	@Autowired
-	private JavaMailSender javaMailSender;
+	private final JavaMailSender javaMailSender;
 	
 	private static final Logger logger = LoggerFactory.getLogger(TodoService.class);
+	
+	public TodoService(TodolistRepository tr, MemberRepository mr, ImageLoadRepository ir, JavaMailSender javaMailSender) {
+		this.tr = tr;
+		this.mr = mr;
+		this.ir = ir;
+		this.javaMailSender = javaMailSender;
+	}
 	
 	public List<Todolist> gettodo() {
 
@@ -192,7 +196,6 @@ public class TodoService {
 	public ResponseEntity<String> updateInfo(Members mb) {
 		String newid = mb.getMid();
 		String memail = mb.getMemail();
-
 
 //		List<Members> lmb = (List<Members>) mr.findAll();
 		List<Members> lms = mr.findByMemail(mb.getMemail());

@@ -2,13 +2,18 @@ package com.todolist.server.domain;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +28,14 @@ import lombok.ToString;
 //@AllArgsConstructor
 //@NoArgsConstructor
 @Entity
+@Table(name="members", indexes= {
+		@Index(columnList="seq"),
+		@Index(columnList="mid"),
+		@Index(columnList="password"),
+		@Index(columnList="mdate"),
+		@Index(columnList="memail")
+})
+@EntityListeners(AuditingEntityListener.class)
 public class Members {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

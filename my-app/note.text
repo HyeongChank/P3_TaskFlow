@@ -3,3 +3,16 @@ img css 넣는 방법
   width: 300px;
   height: auto;
 }
+
+
+h2 db에서  .sql 파일 추출하는 방법
+  - 화면 오른쪽 하단 화살표에서 h2 console 클릭
+  - database path : ~/db명
+  - username : sa
+  - password : jsk2819
+  ---> create
+
+안되면 mv.db 파일 생성해보기
+
+spring - resource 변경해서 서버 실행
+  ---> db 내용 들어가는지 확인

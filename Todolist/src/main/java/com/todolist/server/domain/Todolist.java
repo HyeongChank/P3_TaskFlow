@@ -2,10 +2,15 @@ package com.todolist.server.domain;
 
 import java.util.Date;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,6 +25,15 @@ import lombok.ToString;
 //@AllArgsConstructor
 //@NoArgsConstructor
 @Entity
+@Table(name="todolist", indexes= {
+		@Index(columnList="id"),
+		@Index(columnList="todo"),
+		@Index(columnList="success"),
+		@Index(columnList="cdate"),
+		@Index(columnList="content"),
+		@Index(columnList="mid")
+})
+@EntityListeners(AuditingEntityListener.class)
 public class Todolist {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +43,7 @@ public class Todolist {
 	private String cdate;
 	private String content;
 	private String mid;
+	
 	public Todolist() {
 		
 	}

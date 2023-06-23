@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {  useLocation, useNavigate } from 'react-router-dom';
 import TodoChart from './TodoChart';
 import TodoWordAnal from './TodoWordAnal';
@@ -147,11 +147,7 @@ const DA = () =>{
         }
 
     }, [gettododata])
-    // console.log(gettododata)
-    // console.log('successbydate', successbydate)
-    // console.log('length', Object.keys(successbydate).length)
-    // console.log('countBydate', countbydate)
-    // console.log('sentianal', sentianal)
+
     return(
         <div>
             <div>

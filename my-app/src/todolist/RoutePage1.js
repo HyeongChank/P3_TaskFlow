@@ -45,14 +45,14 @@ const RoutePage1 = () => {
                 return(
                     <div key={item.id}>
                         <div className='btGroup'>
-                            <h3 className='dbtitle'>TodoTitle : {item.todo}</h3>
+                            <h3 className='dbtitle'>TaskTitle : {item.todo}</h3>
                             {/* onclick = {() => 함수} 를 사용하는 이유 : 버튼을 클릭했을 때, item을 인자로 함수를 호출하기 위해서
                             onclick = {함수} 로 사용하면 페이지가 렌더링 될 때 즉시 실행되기 때문에 */}
                             <button className='Bt' onClick={() => updatetodo(item)}>수정</button>                            
                             <button className='Bt' onClick={() => deletetodo(item)}>삭제</button>
                             <button className='Bt' onClick={() => successtodo(item)}>{successtext[item.id] || '달성'}</button>
                         </div>
-                        <p className='dbcontent'>TodoContent : {item.content}</p>
+                        <p className='dbcontent'>TaskContent : {item.content}</p>
                     </div>
                 );
             }

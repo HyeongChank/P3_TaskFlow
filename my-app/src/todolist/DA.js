@@ -78,25 +78,35 @@ const DA = () =>{
         // 날짜별 달성 일정 개수
         if(gettododata){
             const successcountBydate = gettododata.reduce((acc, item)=>{
+                
                 if(item.success ==='success'){
                     acc[item.cdate] = (acc[item.cdate] || 0) +1;
                 }
                 else{
-                    acc[item.cdate] = 0;
+                    console.log(acc[item.cdate])
+                    if(acc[item.cdate] !== undefined){
+
+                    }
+                    else{
+                        acc[item.cdate] =0;
+                    }
                 }
+                
                 return acc;
             }, {});
         setSuccessbydate(successcountBydate)
+        console.log(successcountBydate)
         }
         // 날짜별 일정 개수
         if(gettododata){
             const todocountBydate = gettododata.reduce((acc, item)=>{
-                
+
                 acc[item.cdate] = (acc[item.cdate] || 0) +1;
                 
                 return acc;
             }, {});
         setCountbydate(todocountBydate)
+        console.log(todocountBydate)
         }
         // 총 달성 개수
         if(gettododata){

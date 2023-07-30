@@ -14,3 +14,4 @@ public class TodolistApplication {
 	}
 
 }
+// mailsender 오류 시 google 계정 앱비밀번호 새로 생성하여 properties 수정

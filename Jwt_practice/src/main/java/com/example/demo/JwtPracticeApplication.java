@@ -1,15 +1,13 @@
-package com.todolist.server;
+package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
 
 @SpringBootApplication
-public class TodolistApplication {
+public class JwtPracticeApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodolistApplication.class, args);
+		SpringApplication.run(JwtPracticeApplication.class, args);
 	}
 
 }

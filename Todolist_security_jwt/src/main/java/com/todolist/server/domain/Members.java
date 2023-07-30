@@ -1,5 +1,9 @@
 package com.todolist.server.domain;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -36,7 +40,7 @@ import lombok.ToString;
 		@Index(columnList="memail")
 })
 @EntityListeners(AuditingEntityListener.class)
-public class Members {
+public class Members implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long seq;
@@ -52,6 +56,9 @@ public class Members {
 		this.mdate = new Date();
 	}
 	private String memail;
+	private static final long serialVersionUID = 1L;
+
+	
 	public Members() {
 		
 	}
@@ -98,6 +105,34 @@ public class Members {
 	public String toString() {
 		return "Members [mid=" + mid + ", password=" + password + "]";
 	}
-	
+	@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null; // 권한 설정은 나중에 추가로 구현
+    }
+
+    @Override
+    public String getUsername() {
+        return mid;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

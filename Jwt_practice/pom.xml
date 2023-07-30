@@ -21,10 +21,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -51,6 +48,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 		<dependency>
 		    <groupId>org.json</groupId>
 		    <artifactId>json</artifactId>
@@ -60,7 +62,7 @@
 		<dependency>
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
-		    <version>1.18.28</version>
+
 		    <scope>provided</scope>
 		</dependency>
 
@@ -86,11 +88,13 @@
 		      <scope>runtime</scope>
 		    </dependency>
 			<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
 			<dependency>
-			    <groupId>jakarta.validation</groupId>
-			    <artifactId>jakarta.validation-api</artifactId>
-			    <version>3.0.2</version>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter-validation</artifactId>
+
 			</dependency>
+
 
 
 	</dependencies>

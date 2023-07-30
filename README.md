@@ -27,10 +27,9 @@
 - Browser 통한 페이지 이동
 
 ## Todo
-
+- 구글로그인, security
+- DB 정리
 - 일정 다른 사람과 공유 기능?? How? 다른 매체에 업로드되도록
-- 회원가입 시 패스워드 2번 입력하도록
-- 중요 일정 체크 기능
 
 ## 개발노트 
 - 링크주소 : 'https://khc-developer.tistory.com/26'

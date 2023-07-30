@@ -2,14 +2,19 @@ package com.todolist.server.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,13 +82,24 @@ public class TodolistController {
 	}
 	
 	
+	@Autowired
+	Supplier<AuthenticationManager> authenticationManagerSupplier;
+
 	@PostMapping("/api/login")
-	public ResponseEntity<Map<String,String>> getMembers(@RequestBody Members mb){
-	    String id = mb.getMid();
-	    String password = mb.getPassword();
-	    System.out.println(id + password);
-	    return ts.getMembers(mb, id, password);
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody Members authenticationRequest) throws Exception {
+	    try {
+	        AuthenticationManager authenticationManager = authenticationManagerSupplier.get();
+	        authenticationManager.authenticate(
+	            new UsernamePasswordAuthenticationToken(authenticationRequest.getMid(), authenticationRequest.getPassword())
+	        );
+	    } catch (BadCredentialsException e) {
+	        throw new Exception("Incorrect username or password", e);
+	    }
+
+	    // if authentication is successful, respond with the status or token 
+	    return ResponseEntity.ok("Logged in successfully!");
 	}
+
 	@PostMapping("/api/success")
 	public ResponseEntity<String> success(@RequestBody Todolist tl){
 		Long id = tl.getId();
@@ -139,6 +155,4 @@ public class TodolistController {
 		
 		return ts.getimage(mid, cdate, num);
 	}
-	
-
 }

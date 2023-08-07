@@ -1,7 +1,7 @@
-package operate_jwt;
+package com.todolist.server.jwt;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
+
 import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,26 +20,28 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+
+
 @Component
 public class TokenProvider implements InitializingBean {
 
    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
    private static final String AUTHORITIES_KEY = "auth";
-   private final String secret;
-   private final long tokenValidityInMilliseconds;
-   private Key key;
+   
+   // 비밀 키는 더 이상 String이 아니라 Key 타입이 되었습니다.
+   private Key secretKey;
 
-   public TokenProvider(
-      @Value("${jwt.secret}") String secret,
-      @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
-      this.secret = secret;
+   private final long tokenValidityInMilliseconds;
+
+   public TokenProvider(@Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
       this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
    }
 
    @Override
    public void afterPropertiesSet() {
-      byte[] keyBytes = Decoders.BASE64.decode(secret);
-      this.key = Keys.hmacShaKeyFor(keyBytes);
+      // secretKey를 생성할 때 SignatureAlgorithm.HS512를 사용하여 키를 생성합니다.
+      this.secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
    }
 
    public String createToken(Authentication authentication) {
@@ -53,7 +55,7 @@ public class TokenProvider implements InitializingBean {
       return Jwts.builder()
          .setSubject(authentication.getName())
          .claim(AUTHORITIES_KEY, authorities)
-         .signWith(key, SignatureAlgorithm.HS512)
+         .signWith(secretKey, SignatureAlgorithm.HS512)
          .setExpiration(validity)
          .compact();
    }
@@ -61,7 +63,7 @@ public class TokenProvider implements InitializingBean {
    public Authentication getAuthentication(String token) {
       Claims claims = Jwts
               .parserBuilder()
-              .setSigningKey(key)
+              .setSigningKey(secretKey)
               .build()
               .parseClaimsJws(token)
               .getBody();
@@ -78,7 +80,7 @@ public class TokenProvider implements InitializingBean {
 
    public boolean validateToken(String token) {
       try {
-         Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+         Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token);
          return true;
       } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
          logger.info("잘못된 JWT 서명입니다.");

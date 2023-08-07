@@ -3,7 +3,7 @@ import BClock from "./BClock";
 import BLongin from "./BLogin";
 import Backdisplay from "./Backdisplay";
 import Enrollmember from "./Enrollmember";
-
+import Blonginjwt from './Bloginjwt';
 
 
 
@@ -20,7 +20,7 @@ const RouteHome = (props) =>{
             <h1>Todolist</h1>
             <div className="loginclock"><BClock/></div>
             <div className="logintotal">
-                    <div className="loginleft"><BLongin/></div>
+                    <div className="loginleft"><Blonginjwt/></div>
                     <div className="loginright"><Enrollmember/></div>
             </div>
         </div>

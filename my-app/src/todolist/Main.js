@@ -7,6 +7,7 @@ import './mainpage.css';
 import Enrollmember from './Enrollmember';
 import BLogin from './BLogin';
 import BClock from './BClock';
+import Blonginjwt from './Bloginjwt';
 
 const Main = () => {
     const [value, setValue] = useState(new Date());
@@ -143,7 +144,7 @@ const Main = () => {
             <div className='loginArea'>
                 { !isAuthenticated &&
                 <>
-                <div className='loginBt'><BLogin onSuccess={handleLoginSuccess} /></div>
+                <div className='loginBt'><Blonginjwt onSuccess={handleLoginSuccess} /></div>
                 {/* <div className='loginBt'><Login/></div> */}
                 <div className='loginBt'><Enrollmember/></div>
                 </>

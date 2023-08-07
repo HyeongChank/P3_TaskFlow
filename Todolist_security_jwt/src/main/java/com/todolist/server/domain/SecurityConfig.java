@@ -14,10 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
-import operate_jwt.JwtSecurityConfig;
-import operate_jwt.JwtAccessDeniedHandler;
-import operate_jwt.JwtAuthenticationEntryPoint;
-import operate_jwt.TokenProvider;
+
+import com.todolist.server.jwt.JwtAccessDeniedHandler;
+import com.todolist.server.jwt.JwtAuthenticationEntryPoint;
+import com.todolist.server.jwt.JwtSecurityConfig;
+import com.todolist.server.jwt.TokenProvider;
 
 @EnableWebSecurity
 @EnableMethodSecurity

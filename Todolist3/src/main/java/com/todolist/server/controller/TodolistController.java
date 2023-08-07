@@ -2,21 +2,15 @@ package com.todolist.server.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,27 +18,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todolist.server.domain.ImageLoad;
 import com.todolist.server.domain.Members;
 import com.todolist.server.domain.Todolist;
+import com.todolist.server.persistence.MemberRepository;
 import com.todolist.server.service.TodoService;
-import com.todolist.server.jwt.TokenProvider;
-import com.todolist.server.domain.TokenDto;
+
 
 //@CrossOrigin(origins = "https://todolist-45c52.web.app")
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	
-	@Autowired
-	private TokenProvider tokenProvider;
-	
 	private final TodoService ts ;
 	
-	private TodolistController(TodoService ts) {
+	private final MemberRepository mr;
+	
+	private TodolistController(TodoService ts, MemberRepository mr) {
 		this.ts = ts;
+		this.mr = mr;
 	}
 	
 	@GetMapping("/api/model")
@@ -88,29 +82,37 @@ public class TodolistController {
 	}
 	
 	
-	@Autowired
-	Supplier<AuthenticationManager> authenticationManagerSupplier;
-
 	@PostMapping("/api/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody Members authenticationRequest) throws Exception {
-		try {
-	        AuthenticationManager authenticationManager = authenticationManagerSupplier.get();
-	        Authentication authentication = authenticationManager.authenticate(
-	            new UsernamePasswordAuthenticationToken(authenticationRequest.getMid(), authenticationRequest.getPassword())
-	        );
-	        SecurityContextHolder.getContext().setAuthentication(authentication);
-	        
-	        // 토큰 생성
-	        String jwt = tokenProvider.createToken(authentication);
-
-	        // 토큰을 JSON 형식으로 응답
-	        return ResponseEntity.ok(new TokenDto(jwt));
-
-	    } catch (BadCredentialsException e) {
-	        throw new Exception("Incorrect username or password", e);
+	public ResponseEntity<Map<String,String>> getMembers(@RequestBody Members mb){
+		System.out.println(mb.getMemail());
+		System.out.println(mb.getPassword());
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String id = mb.getMid();
+	    String password = mb.getPassword();
+	    System.out.println(id + password);
+	    Map<String, String> map = new HashMap<>();
+	    List<Members> lcs = (List<Members>) mr.findAll();
+	    System.out.println(lcs);
+	    for(Members ms : lcs) {
+	    	System.out.println(ms.getMid());
+	    	if(ms.getMid().equals(id)) {
+//	    		if(ms.getPassword().equals(password)) {
+//	    			map.put("key1", "로그인 성공");
+//	    			map.put("key2", ms.getMid());
+//		    		return ResponseEntity.ok().body(map);	    			
+//	    		}
+	    
+	    
+	    		if(passwordEncoder.matches(password, ms.getPassword())) {
+	    			map.put("key1", "로그인 성공");
+	    			map.put("key2", ms.getMid());
+		    		return ResponseEntity.ok().body(map);	    			
+	    		}
+	    	}
 	    }
+	    map.put("key1", "로그인 실패");
+	    return ResponseEntity.badRequest().body(map);
 	}
-
 	@PostMapping("/api/success")
 	public ResponseEntity<String> success(@RequestBody Todolist tl){
 		Long id = tl.getId();
@@ -166,4 +168,6 @@ public class TodolistController {
 		
 		return ts.getimage(mid, cdate, num);
 	}
+	
+
 }

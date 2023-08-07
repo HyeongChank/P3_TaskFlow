@@ -1,4 +1,4 @@
-package operate_jwt;
+package com.todolist.server.jwt;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;

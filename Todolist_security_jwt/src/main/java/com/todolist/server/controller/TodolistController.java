@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -34,17 +35,22 @@ import com.todolist.server.jwt.TokenProvider;
 import com.todolist.server.domain.TokenDto;
 
 //@CrossOrigin(origins = "https://todolist-45c52.web.app")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class TodolistController {
 	
-	@Autowired
+
 	private TokenProvider tokenProvider;
 	
 	private final TodoService ts ;
 	
-	private TodolistController(TodoService ts) {
-		this.ts = ts;
+	
+	private AuthenticationManager authenticationManager;
+
+	public TodolistController(TodoService ts, TokenProvider tokenProvider, @Lazy AuthenticationManager authenticationManager) {
+	    this.ts = ts;
+	    this.tokenProvider = tokenProvider;
+	    this.authenticationManager = authenticationManager;
 	}
 	
 	@GetMapping("/api/model")
@@ -79,6 +85,7 @@ public class TodolistController {
 	@PostMapping("/api/insertMembers")
 	public ResponseEntity<String> insertMembers(@RequestBody Members mb){
 		//list는 필요없음
+		System.out.println("in server_insertmember");
 		List<Members> memberList = new ArrayList<>();
 		String mid = mb.getMid();
 		System.out.println(mid);
@@ -86,15 +93,14 @@ public class TodolistController {
 
 		return ts.insertMembers(mb, mid, memberList);
 	}
-	
-	
-	@Autowired
-	Supplier<AuthenticationManager> authenticationManagerSupplier;
+
 
 	@PostMapping("/api/login")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody Members authenticationRequest) throws Exception {
+		
 		try {
-	        AuthenticationManager authenticationManager = authenticationManagerSupplier.get();
+			System.out.println("in server");
+	        //AuthenticationManager authenticationManager = authenticationManagerSupplier.get();
 	        Authentication authentication = authenticationManager.authenticate(
 	            new UsernamePasswordAuthenticationToken(authenticationRequest.getMid(), authenticationRequest.getPassword())
 	        );

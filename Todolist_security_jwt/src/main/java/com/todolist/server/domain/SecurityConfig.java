@@ -20,6 +20,7 @@ import com.todolist.server.jwt.JwtAuthenticationEntryPoint;
 import com.todolist.server.jwt.JwtSecurityConfig;
 import com.todolist.server.jwt.TokenProvider;
 
+
 @EnableWebSecurity
 @EnableMethodSecurity
 @Configuration
@@ -29,18 +30,23 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
+
     public SecurityConfig(
         TokenProvider tokenProvider,
         CorsFilter corsFilter,
         JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint,
         JwtAccessDeniedHandler jwtAccessDeniedHandler
+
     ) {
         this.tokenProvider = tokenProvider;
         this.corsFilter = corsFilter;
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAccessDeniedHandler = jwtAccessDeniedHandler;
-    }
 
+    }
+   
+    
+    
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -59,7 +65,7 @@ public class SecurityConfig {
             )
 
             .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                .requestMatchers("/api/hello", "/api/authenticate", "/api/signup").permitAll()
+                .requestMatchers("/api/login", "/api/insertMembers").permitAll()
                 .requestMatchers(PathRequest.toH2Console()).permitAll()
                 .anyRequest().authenticated()
             )
@@ -79,4 +85,5 @@ public class SecurityConfig {
             .apply(new JwtSecurityConfig(tokenProvider));
         return http.build();
     }
+    
 }

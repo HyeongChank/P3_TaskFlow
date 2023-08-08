@@ -1,9 +1,11 @@
 package com.todolist.server.domain;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -106,9 +108,10 @@ public class Members implements UserDetails{
 		return "Members [mid=" + mid + ", password=" + password + "]";
 	}
 	@Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null; // 권한 설정은 나중에 추가로 구현
-    }
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+	    return Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+	}
+
 
     @Override
     public String getUsername() {

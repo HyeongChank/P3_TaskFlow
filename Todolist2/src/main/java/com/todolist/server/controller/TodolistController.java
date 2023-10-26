@@ -45,6 +45,7 @@ public class TodolistController {
 	@PostMapping("/api/insertone")
 	public ResponseEntity<String> insertone(@RequestBody Todolist tl) {
 		List<Todolist> todoList = new ArrayList<>();
+		
 		todoList.add(tl);
 		return ts.insertTodo(todoList);
 	}

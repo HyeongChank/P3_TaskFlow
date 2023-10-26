@@ -98,17 +98,27 @@ public class TodoService {
 		System.out.println(mb.getMid());
 		List<Members> lmb = (List<Members>) mr.findAll();
 		System.out.println(lmb.size());
+		System.out.println(mb.getMid());
+		System.out.println(mb.getPassword());
+		System.out.println(mb.getMid().length());
 		boolean alreadyExist = false;
-		for(Members ms : lmb) {
-			if(ms.getMid().equals(mb.getMid())) {
-				alreadyExist = true;
-			    return ResponseEntity.badRequest().body("등록 실패");
+		if(mb.getMid().length()>=3 && mb.getPassword().length()>=3 && mb.getMemail().contains("@")) {
+			for(Members ms : lmb) {
+				if(ms.getMid().equals(mb.getMid())) {
+					alreadyExist = true;
+				    return ResponseEntity.badRequest().body("기등록된 아이디입니다.");
+				}
 			}
+			if(!alreadyExist) {
+				mr.save(mb);
+			}
+			return ResponseEntity.ok().body("등록 성공");	    			
+			
 		}
-		if(!alreadyExist) {
-			mr.save(mb);
+		else {
+		    return ResponseEntity.badRequest().body("ID, Password는 3자 이상, 이메일을 정확하게 작성해 주시기 바랍니다.");			
 		}
-		return ResponseEntity.ok().body("등록 성공");	    			
+
 	}
 
 	public ResponseEntity<Map<String, String>> getMembers(Members mb, String id, String password) {
